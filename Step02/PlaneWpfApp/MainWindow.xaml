@@ -1,0 +1,44 @@
+﻿<Window x:Class="PlaneWpfApp.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:PlaneWpfApp"
+		mc:Ignorable="d"
+		Title="MainWindow" Height="480" Width="640"
+		WindowStartupLocation="CenterScreen">
+	<Window.DataContext>
+		<local:MainWindowViewModel />
+	</Window.DataContext>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="0.05*"/>
+			<ColumnDefinition Width="0.9*"/>
+			<ColumnDefinition Width="0.05*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="1"
+			  Margin="0, 20, 0, 0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.2*"/>
+					<ColumnDefinition Width="0.65*"/>
+					<ColumnDefinition Width="0.15*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Column="0"
+						   VerticalAlignment="Center"
+						   Text="単一値" />
+				<TextBox Grid.Column="1"
+						 Margin="0, 0, 15, 0"
+						 VerticalContentAlignment="Center"
+						 Text="{Binding SingleValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+				<Button Grid.Column="2"
+						Content="Command"
+						Command="{Binding ButtonCommand}"/>
+			</Grid>
+		</Grid>
+	</Grid>
+</Window>
