@@ -1,0 +1,12 @@
+﻿<metro:MetroWindow x:Class="PrismSample.MainWindow"
+				   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+				   xmlns:prism="http://prismlibrary.com/"
+				   prism:ViewModelLocator.AutoWireViewModel="True"
+				   Title="{Binding Title}" Height="350" Width="525"
+				   TitleCharacterCasing="Normal">
+	<Grid>
+		<ContentControl prism:RegionManager.RegionName="ContentRegion" />
+	</Grid>
+</metro:MetroWindow>
