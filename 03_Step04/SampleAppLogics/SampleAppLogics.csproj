@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>SampleAppLogics</AssemblyName>
+    <RootNamespace>PrismSample</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SampleDataAccesInterfaces\SampleDataAccesInterfaces.csproj" />
+    <ProjectReference Include="..\SampleDataAccess\SampleDataAccess.csproj" />
+    <ProjectReference Include="..\SampleModels\SampleModels.csproj" />
+  </ItemGroup>
+</Project>
