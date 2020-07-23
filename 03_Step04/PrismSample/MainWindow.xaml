@@ -8,8 +8,13 @@
 				   Title="{Binding Title}" Height="350" Width="525"
 				   TitleCharacterCasing="Normal"
 				   WindowStartupLocation="CenterScreen">
+	<xb:Interaction.Triggers>
+		<xb:EventTrigger EventName="ContentRendered">
+			<xb:InvokeCommandAction Command="{Binding ShowViewButtonClick}" />
+		</xb:EventTrigger>
+	</xb:Interaction.Triggers>
 	<Grid>
-		<Grid.RowDefinitions>
+		<!--<Grid.RowDefinitions>
 			<RowDefinition Height="0.15*"/>
 			<RowDefinition Height="0.85*"/>
 		</Grid.RowDefinitions>
@@ -17,8 +22,7 @@
 					Orientation="Horizontal">
 			<Button Content="View表示"
 					Command="{Binding ShowViewButtonClick}"/>
-		</StackPanel>
-		<ContentControl Grid.Row="1"
-						prism:RegionManager.RegionName="ContentRegion" />
+		</StackPanel>-->
+		<ContentControl prism:RegionManager.RegionName="ContentRegion" />
 	</Grid>
 </metro:MetroWindow>

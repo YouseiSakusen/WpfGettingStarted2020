@@ -44,8 +44,6 @@ namespace PrismSample
 		{
 			base.ConfigureModuleCatalog(moduleCatalog);
 			Debug.WriteLine("ConfigureModuleCatalog");
-
-			moduleCatalog.AddModule<ModuleSampleModule>();
 		}
 
 		protected override void ConfigureServiceLocator()
@@ -76,20 +74,20 @@ namespace PrismSample
 			return base.CreateContainerExtension();
 		}
 
-		//protected override IModuleCatalog CreateModuleCatalog()
-		//{
-		//	Debug.WriteLine("CreateModuleCatalog");
-
-		//	var dic = new DirectoryModuleCatalog() { ModulePath = @".\ModelModules" };
-
-		//	return dic;
-		//}
-
 		protected override IModuleCatalog CreateModuleCatalog()
 		{
 			Debug.WriteLine("CreateModuleCatalog");
-			return base.CreateModuleCatalog();
+
+			var dic = new DirectoryModuleCatalog() { ModulePath = @".\ModelModules" };
+
+			return dic;
 		}
+
+		//protected override IModuleCatalog CreateModuleCatalog()
+		//{
+		//	Debug.WriteLine("CreateModuleCatalog");
+		//	return base.CreateModuleCatalog();
+		//}
 
 		protected override void InitializeModules()
 		{

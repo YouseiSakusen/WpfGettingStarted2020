@@ -8,9 +8,7 @@ namespace PrismSample
 		/// <summary>DataAccessモジュール</summary>
 		public void OnInitialized(IContainerProvider containerProvider)
 		{
-			var modules = containerProvider.Resolve<IModuleCatalog>();
 
-			modules.AddModule<SampleDataAccessModule>();
 		}
 
 		/// <summary>DIコンテナへ型を登録します。</summary>
