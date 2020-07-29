@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using System.Diagnostics;
+using Prism.Ioc;
 using Prism.Modularity;
 
 namespace PrismSample
@@ -17,6 +18,7 @@ namespace PrismSample
 		/// <param name="containerRegistry">型を登録するDIコンテナを表すIContainerRegistry。</param>
 		public void RegisterTypes(IContainerRegistry containerRegistry)
 		{
+			Debug.WriteLine("IPersonRepository RegisterTypes");
 			containerRegistry.Register<IPersonRepository, PersonRepository>();
 			//containerRegistry.RegisterInstance<IPersonRepository>(new PersonRepository());
 			//containerRegistry.RegisterSingleton<IPersonRepository, PersonRepository>();

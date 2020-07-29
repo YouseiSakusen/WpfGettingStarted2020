@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using System.Diagnostics;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -17,6 +18,7 @@ namespace PrismSample
 
 		void onShowViewButtonClick()
 		{
+			Debug.WriteLine("ContentRendered Event Command");
 			this.regionManager.RequestNavigate("ContentRegion", "ViewSample");
 		}
 

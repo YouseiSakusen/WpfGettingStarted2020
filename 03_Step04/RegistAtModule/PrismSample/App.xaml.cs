@@ -74,13 +74,13 @@ namespace PrismSample
 			return base.CreateContainerExtension();
 		}
 
+		/// <summary>IModuleCatalogを作成します。</summary>
+		/// <returns>作成したIModuleCatalog。</returns>
 		protected override IModuleCatalog CreateModuleCatalog()
 		{
 			Debug.WriteLine("CreateModuleCatalog");
 
-			var dic = new DirectoryModuleCatalog() { ModulePath = @".\ModelModules" };
-
-			return dic;
+			return new DirectoryModuleCatalog() { ModulePath = @".\ModelModules" };
 		}
 
 		//protected override IModuleCatalog CreateModuleCatalog()

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismSample", "PrismSample\PrismSample.csproj", "{59F4F577-F474-4924-BA64-8BB3A60D0168}"
+	ProjectSection(ProjectDependencies) = postProject
+		{006664A8-3DF1-4881-8E8E-D29FC34CF226} = {006664A8-3DF1-4881-8E8E-D29FC34CF226}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleSample", "ModuleSample\ModuleSample.csproj", "{006664A8-3DF1-4881-8E8E-D29FC34CF226}"
 EndProject

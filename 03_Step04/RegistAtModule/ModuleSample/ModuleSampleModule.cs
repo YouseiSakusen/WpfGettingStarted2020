@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using System.Diagnostics;
+using Prism.Ioc;
 using Prism.Modularity;
 
 namespace PrismSample
@@ -7,11 +8,12 @@ namespace PrismSample
 	{
 		public void OnInitialized(IContainerProvider containerProvider)
 		{
-
+			
 		}
 
 		public void RegisterTypes(IContainerRegistry containerRegistry)
 		{
+			Debug.WriteLine("ViewSample RegisterTypes");
 			containerRegistry.RegisterForNavigation<ViewSample, ViewSampleViewModel>();
 		}
 	}
