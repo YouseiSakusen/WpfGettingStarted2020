@@ -1,18 +1,34 @@
-﻿using Prism.Mvvm;
+﻿using System.Windows;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Unity;
 
 namespace PrismSample
 {
 	/// <summary>MainWindowへ表示するサンプルViewのVM。</summary>
 	public class ViewSampleViewModel : BindableBase
 	{
+		public DelegateCommand ExecuteAgent { get; }
+
+		void onExecuteAgent()
+		{
+			using (var agent = ((Application.Current as PrismApplication).Container.Resolve(typeof(DataAgent)) as DataAgent))
+			{
+				var person = agent?.GetPerson(1);
+			}
+		}
+
 		/// <summary>データ読み書き用Agent。</summary>
-		private DataAgent agent = null;
+		//private DataAgent agent = null;
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="dataAgent">データ読み書き用Agent。（DIコンテナからインジェクションされる）</param>
-		public ViewSampleViewModel(DataAgent dataAgent)
+		//public ViewSampleViewModel(DataAgent dataAgent)
+		public ViewSampleViewModel()
 		{
-			this.agent = dataAgent;
+			this.ExecuteAgent = new DelegateCommand(this.onExecuteAgent);
+
+			//this.agent = dataAgent;
 		}
 	}
 }
