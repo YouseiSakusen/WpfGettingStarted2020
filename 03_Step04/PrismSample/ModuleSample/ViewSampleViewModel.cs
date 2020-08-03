@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Prism.Commands;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;
 
@@ -12,7 +13,7 @@ namespace PrismSample
 
 		void onExecuteAgent()
 		{
-			using (var agent = ((Application.Current as PrismApplication).Container.Resolve(typeof(DataAgent)) as DataAgent))
+			using (var agent = (Application.Current as PrismApplication).Container.Resolve<DataAgent>())
 			{
 				var person = agent?.GetPerson(1);
 			}
