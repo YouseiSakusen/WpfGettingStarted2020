@@ -1,0 +1,29 @@
+﻿<metro:MetroWindow x:Class="PrismSample.MainWindow"
+				   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+				   xmlns:prism="http://prismlibrary.com/"
+				   prism:ViewModelLocator.AutoWireViewModel="True"
+				   Title="{Binding Title}" Height="350" Width="525"
+				   TitleCharacterCasing="Normal"
+				   WindowStartupLocation="CenterScreen">
+	<Grid>
+		<ContentControl prism:RegionManager.RegionName="ContentRegion" />
+		<!--<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="0.2*"/>
+			<ColumnDefinition Width="0.8*"/>
+		</Grid.ColumnDefinitions>
+		<ContentControl Grid.Column="0"
+						prism:RegionManager.RegionName="RedContent" />
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="0.7*"/>
+				<RowDefinition Height="0.3*"/>
+			</Grid.RowDefinitions>
+			<ContentControl Grid.Row="0"
+							prism:RegionManager.RegionName="BlueContent" />
+			<ContentControl Grid.Row="1"
+							prism:RegionManager.RegionName="GreenContent" />
+		</Grid>-->
+	</Grid>
+</metro:MetroWindow>
