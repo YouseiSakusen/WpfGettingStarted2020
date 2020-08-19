@@ -1,16 +1,15 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Prism.Mvvm;
+using Prism.Navigation;
 
 namespace PrismSample.Blue
 {
-	public class DarkTurquoiseViewModel : BindableBase
+	public class DarkTurquoiseViewModel : BindableBase, IDestructible
 	{
 		public DarkTurquoiseViewModel()
 		{
 
 		}
+
+		public void Destroy() {	}
 	}
 }

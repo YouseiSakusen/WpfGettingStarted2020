@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using PrismSample.Green;
 using PrismSample.Red;
 
 namespace PrismSample
@@ -21,6 +22,8 @@ namespace PrismSample
 		public void RegisterTypes(IContainerRegistry containerRegistry)
 		{
 			//containerRegistry.RegisterForNavigation<Tomato, TomatoViewModel>();
+
+			containerRegistry.RegisterForNavigation<MediumSeaGreen, MediumSeaGreenViewModel>();
 		}
 	}
 }

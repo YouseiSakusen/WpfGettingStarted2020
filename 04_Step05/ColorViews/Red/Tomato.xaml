@@ -8,12 +8,13 @@
 			 d:DesignHeight="300" d:DesignWidth="300"
 			 prism:ViewModelLocator.AutoWireViewModel="True">
 	<Grid>
-		<Grid.ColumnDefinitions>
+		<!--<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0.7*"/>
 			<ColumnDefinition Width="0.3*"/>
 		</Grid.ColumnDefinitions>
 		<Border Grid.Column="0" Background="Tomato" />
 		<ContentControl Grid.Column="1"
-						prism:RegionManager.RegionName="BlueContent" />
+						prism:RegionManager.RegionName="BlueContent" />-->
+		<Border Background="Tomato" />
 	</Grid>
 </UserControl>
