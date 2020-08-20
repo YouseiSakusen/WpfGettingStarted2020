@@ -29,8 +29,8 @@ namespace PrismSample
 			this.regionManager = regMan;
 
 			//regMan.RegisterViewWithRegion("ContentRegion", typeof(Tomato));
-			regMan.RegisterViewWithRegion("RedContent", typeof(Tomato));
-			regMan.RegisterViewWithRegion("BlueContent", typeof(DarkTurquoise));
+			this.regionManager.RegisterViewWithRegion("RedContent", typeof(Tomato));
+			this.regionManager.RegisterViewWithRegion("BlueContent", typeof(DarkTurquoise));
 			//regMan.RegisterViewWithRegion("GreenContent", typeof(MediumSeaGreen));
 		}
 
