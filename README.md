@@ -12,3 +12,7 @@
 ## 03_Step04
 
 【[step: 4　Prism の DI コンテナらは Ioc 上に歌う](https://elf-mission.net/programming/wpf/getting-started-2020/step04/)】で紹介した Prism の DIコンテナを利用するサンプル。
+
+## 04_Step05
+
+【[step: 5　Prism の Region に部分 View がいます。](https://elf-mission.net/programming/wpf/getting-started-2020/step05/)】で紹介した Prism の Region へ部分 View を表示する方法と Shell や部分 View の VM を破棄するサンプル。
