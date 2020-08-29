@@ -16,3 +16,7 @@
 ## 04_Step05
 
 【[step: 5　Prism の Region に部分 View がいます。](https://elf-mission.net/programming/wpf/getting-started-2020/step05/)】で紹介した Prism の Region へ部分 View を表示する方法と Shell や部分 View の VM を破棄するサンプル。
+
+## 05_Step06
+
+【[step: 6　Prism に Model ⇔ VM の双方向バインドは難しい](https://elf-mission.net/programming/wpf/getting-started-2020/step06/)】で紹介した Prism の MVVM サポートクラス群を利用して View ⇔ ViewModel 間 Model ⇔ ViewModel 間をデータバインディングするためのサンプル。
