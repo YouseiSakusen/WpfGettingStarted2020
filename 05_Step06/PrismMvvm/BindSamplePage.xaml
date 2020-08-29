@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="PrismSample.PrismMvvm.BindSamplePage"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:prism="http://prismlibrary.com/"
+			 xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="640" d:DesignWidth="640"
+			 prism:ViewModelLocator.AutoWireViewModel="True">
+	<Grid Margin="15, 5, 15, 0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.3*"/>
+			<RowDefinition Height="0.7*"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0"
+						Orientation="Horizontal">
+				<TextBox Width="100"
+						 HorizontalAlignment="Left"
+						 md:HintAssist.Hint="ID"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+				<Button Content="読込"
+						Margin="15, 5, 0, 5"
+						Command="{Binding SearchButtonClick}"/>
+			</StackPanel>
+			<!--<TextBox Grid.Row="1"
+					 md:HintAssist.Hint="名前"
+					 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+					 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					 IsEnabled="{Binding NameTextBox.IsEnabled, Mode=OneWay}"/>-->
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.75*"/>
+					<ColumnDefinition Width="0.25*"/>
+				</Grid.ColumnDefinitions>
+				<TextBox Grid.Column="0"
+						 md:HintAssist.Hint="名前"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 IsEnabled="{Binding ElementName=tglNameEnabled, Path=IsChecked}"
+						 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<StackPanel Grid.Column="1"
+							Orientation="Horizontal"
+							Margin="10, 0, 0, 0">
+					<TextBlock Text="使用可能"
+							   VerticalAlignment="Center"/>
+					<ToggleButton Name="tglNameEnabled"
+								  Margin="10, 0, 0, 0"
+								  IsChecked="True"/>
+				</StackPanel>
+			</Grid>
+			<StackPanel Grid.Row="2"
+						Orientation="Horizontal">
+				<DatePicker Grid.Row="2" Width="100"
+						HorizontalAlignment="Left"
+						md:HintAssist.Hint="誕生日"
+						Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+						SelectedDate="{Binding BirthDay, Mode=TwoWay}"/>
+				<TextBox Margin="10, 0, 0, 4"
+						 IsReadOnly="True"
+						 HorizontalContentAlignment="Right"
+						 md:HintAssist.Hint="年齢"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Text="{Binding Age, Mode=OneWay}"/>
+				<TextBlock Text="歳"
+						   Margin="8, 0, 0, 5"
+						   VerticalAlignment="Bottom"/>
+			</StackPanel>
+			<Button Grid.Row="3" Width="100"
+					Content="保存"
+					Command="{Binding SaveButtonClick}"/>
+		</Grid>
+	</Grid>
+</UserControl>
