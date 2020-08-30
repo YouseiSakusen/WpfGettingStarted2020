@@ -14,7 +14,8 @@
 		</Grid.ColumnDefinitions>
 		<Border Grid.Column="0" Background="Tomato" />
 		<ContentControl Grid.Column="1"
-						prism:RegionManager.RegionName="BlueContent" />-->
+						prism:RegionManager.RegionName="BlueContent"
+						Focusable="False"/>-->
 		<Border Background="Tomato" />
 	</Grid>
 </UserControl>

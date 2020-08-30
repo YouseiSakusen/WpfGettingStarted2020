@@ -22,7 +22,8 @@
 			<ColumnDefinition Width="0.8*"/>
 		</Grid.ColumnDefinitions>
 		<ContentControl Grid.Column="0"
-						prism:RegionManager.RegionName="RedContent" />
+						prism:RegionManager.RegionName="RedContent"
+						Focusable="False"/>
 		<!--<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="0.7*"/>
@@ -34,7 +35,8 @@
 							prism:RegionManager.RegionName="GreenContent" />
 		</Grid>-->
 		<Grid Grid.Column="1">
-			<ContentControl prism:RegionManager.RegionName="BlueContent" />
+			<ContentControl prism:RegionManager.RegionName="BlueContent"
+							Focusable="False"/>
 		</Grid>
 	</Grid>
 </metro:MetroWindow>
