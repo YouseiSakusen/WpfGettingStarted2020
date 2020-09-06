@@ -11,23 +11,6 @@ namespace PrismSample
 
 		}
 
-		public async Task SavePersonSlimAsync(PersonSlim person)
-		{
-			//return Task.Run(() =>
-			//{
-			//	var dirPath = Path.Combine(SampleUtilities.GetExecutingPath(), "Bleach.xml");
-
-			//	SampleUtilities.XmlSerializeToFile<PersonSlim>(dirPath, person);
-			//});
-
-			var dirPath = Path.Combine(SampleUtilities.GetExecutingPath(), "Bleach.xml");
-
-			await Task.Run(() =>
-			{
-				SampleUtilities.SerializeMessagePack<PersonSlim>(dirPath, person);
-			});
-		}
-
 		public Person GetPerson(int id)
 		{
 			return this.createSampleData();

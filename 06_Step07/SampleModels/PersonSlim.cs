@@ -1,31 +1,24 @@
 ﻿using System;
 using System.Reactive.Linq;
-using MessagePack;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
 namespace PrismSample
 {
-	[MessagePackObject]
 	public class PersonSlim : DisposableModelBase
 	{
 		/// <summary>IDを取得・設定します。</summary>
-		[Key(0)]
-		public ReactivePropertySlim<int?> Id { get; set; }
+		public ReactivePropertySlim<int?> Id { get; }
 
 		/// <summary>名前を取得・設定します。</summary>
-		[Key(1)]
-		public ReactivePropertySlim<string> Name { get; set; }
+		public ReactivePropertySlim<string> Name { get; }
 
 		/// <summary>誕生日を取得・設定します。</summary>
-		[Key(2)]
-		public ReactivePropertySlim<DateTime?> BirthDay { get; set; }
+		public ReactivePropertySlim<DateTime?> BirthDay { get; }
 
 		/// <summary>年齢を取得します。</summary>
-		[IgnoreMember]
-		public ReadOnlyReactivePropertySlim<int> Age { get; set; }
+		public ReadOnlyReactivePropertySlim<int> Age { get; }
 
-		[IgnoreMember]
 		private ReactivePropertySlim<int> calcAge { get; set; }
 
 		/// <summary>コンストラクタ。</summary>
@@ -59,6 +52,13 @@ namespace PrismSample
 					this.calcAge.Value = DateTime.Now.Year - d.Value.Year;
 			})
 				.AddTo(this.disposables);
+
+			//this.BirthDay = new ReactivePropertySlim<DateTime?>(birthDay)
+			//	.AddTo(this.disposables);
+			//this.Age = this.BirthDay.Where(d => d.HasValue)
+			//	.Select(d => DateTime.Now.Year - d.Value.Year)
+			//	.ToReadOnlyReactivePropertySlim()
+			//	.AddTo(this.disposables);
 		}
 	}
 }

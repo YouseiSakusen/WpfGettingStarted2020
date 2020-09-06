@@ -12,7 +12,5 @@ namespace PrismSample
 		public Task UpdatePersonSlimAsync(int id, PersonSlim person);
 
 		public void SavePerson(Person person);
-
-		public Task SavePersonSlimAsync(PersonSlim person);
 	}
 }

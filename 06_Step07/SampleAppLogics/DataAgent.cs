@@ -30,11 +30,6 @@ namespace PrismSample
 			this.personRepository.SavePerson(person);
 		}
 
-		public async Task SavePersonSlimAsync(PersonSlim person)
-		{
-			await this.personRepository.SavePersonSlimAsync(person);
-		}
-
 		private IPersonRepository personRepository = null;
 
 		public DataAgent(IPersonRepository personRepo)

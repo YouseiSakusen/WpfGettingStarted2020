@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Reactive.Disposables;
-using System.Runtime.Serialization;
-using MessagePack;
 
 namespace PrismSample
 {
 	/// <summary>DisposableなModelを表します。</summary>
-	[MessagePackObject]
 	public class DisposableModelBase : IDisposable
 	{
-		[MessagePack.Key(5)]
 		protected CompositeDisposable disposables = new CompositeDisposable();
-		[IgnoreMember]
 		private bool disposedValue;
 
 		protected virtual void Dispose(bool disposing)

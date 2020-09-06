@@ -6,12 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.1.165" />
-    <PackageReference Include="MessagePack.ReactiveProperty" Version="2.1.165" />
-    <PackageReference Include="MessagePackAnalyzer" Version="2.1.165" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
     <PackageReference Include="ReactiveProperty" Version="7.2.0" />
-    <PackageReference Include="System.Reactive.Compatibility" Version="4.4.1" />
   </ItemGroup>
 
 </Project>

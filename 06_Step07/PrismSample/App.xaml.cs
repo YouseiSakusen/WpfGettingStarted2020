@@ -37,10 +37,5 @@ namespace PrismSample
 			containerRegistry.Register<IDataAgent, DataAgent>();
 			containerRegistry.Register<PersonSlim>();
 		}
-
-		private void PrismApplication_Startup(object sender, StartupEventArgs e)
-		{
-			SampleUtilities.InitializeMessagePack();
-		}
 	}
 }
