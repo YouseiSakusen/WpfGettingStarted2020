@@ -20,3 +20,7 @@
 ## 05_Step06
 
 【[step: 6　Prism に Model ⇔ VM の双方向バインドは難しい](https://elf-mission.net/programming/wpf/getting-started-2020/step06/)】で紹介した Prism の MVVM サポートクラス群を利用して View ⇔ ViewModel 間 Model ⇔ ViewModel 間をデータバインディングするためのサンプル。
+
+## 06_Step07
+
+【[step: 7　ReactiveProperty を編む](https://elf-mission.net/programming/wpf/getting-started-2020/step07/)】で紹介した ReactiveProperty で View ⇔ ViewModel 間 Model ⇔ ViewModel 間を双方向でバインドするサンプル。
