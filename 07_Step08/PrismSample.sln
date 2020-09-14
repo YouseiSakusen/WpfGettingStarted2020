@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismSample", "PrismSample\PrismSample.csproj", "{898664E6-0849-4431-9B79-E552E2D2A5C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismMvvm", "PrismMvvm\PrismMvvm.csproj", "{AE590DC0-8F3C-4B9A-8D62-4BBC54D21888}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleModels", "SampleModels\SampleModels.csproj", "{BA6C5C3F-74AD-433E-AC15-70E806ADED83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAppLogics", "SampleAppLogics\SampleAppLogics.csproj", "{62B62A0E-F64E-42F9-BBA2-130EED0A6F80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleDataAccess", "SampleDataAccess\SampleDataAccess.csproj", "{37616BC6-9C95-4E5B-9597-DC917AA56F85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactiveMvvm", "ReactiveMvvm\ReactiveMvvm.csproj", "{1B6338F3-4DB9-41BA-BF3D-374C4EF46B34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{898664E6-0849-4431-9B79-E552E2D2A5C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{898664E6-0849-4431-9B79-E552E2D2A5C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{898664E6-0849-4431-9B79-E552E2D2A5C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{898664E6-0849-4431-9B79-E552E2D2A5C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE590DC0-8F3C-4B9A-8D62-4BBC54D21888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE590DC0-8F3C-4B9A-8D62-4BBC54D21888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE590DC0-8F3C-4B9A-8D62-4BBC54D21888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE590DC0-8F3C-4B9A-8D62-4BBC54D21888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA6C5C3F-74AD-433E-AC15-70E806ADED83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6C5C3F-74AD-433E-AC15-70E806ADED83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6C5C3F-74AD-433E-AC15-70E806ADED83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6C5C3F-74AD-433E-AC15-70E806ADED83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B62A0E-F64E-42F9-BBA2-130EED0A6F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B62A0E-F64E-42F9-BBA2-130EED0A6F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B62A0E-F64E-42F9-BBA2-130EED0A6F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B62A0E-F64E-42F9-BBA2-130EED0A6F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37616BC6-9C95-4E5B-9597-DC917AA56F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37616BC6-9C95-4E5B-9597-DC917AA56F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37616BC6-9C95-4E5B-9597-DC917AA56F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37616BC6-9C95-4E5B-9597-DC917AA56F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6338F3-4DB9-41BA-BF3D-374C4EF46B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6338F3-4DB9-41BA-BF3D-374C4EF46B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6338F3-4DB9-41BA-BF3D-374C4EF46B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6338F3-4DB9-41BA-BF3D-374C4EF46B34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D04091F7-F8D2-4EE1-98F6-9D32FDBD04D4}
+	EndGlobalSection
+EndGlobal

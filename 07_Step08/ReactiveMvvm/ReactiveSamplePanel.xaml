@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="PrismSample.ReactiveMvvm.ReactiveSamplePanel"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+			 xmlns:prism="http://prismlibrary.com/"
+			 xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+			 xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
+			 xmlns:local="clr-namespace:PrismSample.ReactiveMvvm"
+			 mc:Ignorable="d" 
+			 d:DesignHeight="480" d:DesignWidth="640"
+			 prism:ViewModelLocator.AutoWireViewModel="True">
+	<UserControl.Resources>
+		<local:StringToNullableIntConverter x:Key="NullableIntConverter" />
+	</UserControl.Resources>
+	<bh:Interaction.Triggers>
+		<bh:EventTrigger EventName="Loaded">
+			<rp:EventToReactiveCommand Command="{Binding ViewLoaded}" />
+		</bh:EventTrigger>
+		<bh:EventTrigger EventName="MouseMove">
+			<!--<rp:EventToReactiveProperty ReactiveProperty="{Binding MousePoint}" />-->
+			<rp:EventToReactiveCommand Command="{Binding MouseMove}" />
+		</bh:EventTrigger>
+	</bh:Interaction.Triggers>
+	<Grid Margin="15, 20, 15, 0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.65*"/>
+			<RowDefinition Height="0.35*"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="0.2*"/>
+				<RowDefinition Height="0.2*"/>
+				<RowDefinition Height="0.21*"/>
+				<RowDefinition Height="0.2*"/>
+				<RowDefinition Height="0.2*"/>
+				<RowDefinition Height="0.2*"/>
+				<RowDefinition Height="0.09*"/>
+			</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0"
+						Orientation="Horizontal">
+				<TextBox Width="100"
+						 md:HintAssist.Hint="ID"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Text="{Binding Id.Value, Converter={StaticResource NullableIntConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+				<Button Content="読込"
+						Margin="15, 5, 0, 5"
+						Command="{Binding LoadClick}"/>
+				<Button Content="AutoMapperテスト"
+						Margin="10 0 0 0"
+						Command="{Binding MapperTest}" />
+				<TextBlock VerticalAlignment="Center"
+						   Margin="50 0 0 0"
+						   Text="{Binding CurrentMousePoint.Value}" />
+			</StackPanel>
+			<StackPanel Grid.Row="1"
+						Orientation="Horizontal">
+				<TextBox Width="250"
+						 md:HintAssist.Hint="名前"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Text="{Binding Name.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<Button Content="現在日時"
+						Margin="10 0 0 0"
+						Command="{Binding NowDateTimeClick}" />
+				<TextBlock Text="{Binding NowDateTime.Value}"
+						   VerticalAlignment="Center"
+						   Margin="10 0 0 0"/>
+			</StackPanel>
+			<StackPanel Grid.Row="2"
+						Orientation="Horizontal">
+				<DatePicker Grid.Row="2" Width="100"
+							HorizontalAlignment="Left"
+							md:HintAssist.Hint="誕生日"
+							Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+							SelectedDate="{Binding BirthDay.Value, Mode=TwoWay}"/>
+				<TextBox Margin="10, 0, 0, 4"
+						 IsReadOnly="True"
+						 HorizontalContentAlignment="Right"
+						 md:HintAssist.Hint="年齢"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Text="{Binding Age.Value, Mode=OneWay}"/>
+				<TextBlock Text="歳"
+						   Margin="8, 0, 0, 5"
+						   VerticalAlignment="Bottom"/>
+			</StackPanel>
+			<Button Grid.Row="3" Width="100"
+					Content="保存"
+					Command="{Binding SaveButtonClick}"/>
+			<StackPanel Grid.Row="4"
+						Orientation="Horizontal">
+				<!--<Button Content="10分前"
+						Command="{Binding PastTimeClick}"
+						CommandParameter="10"/>
+				<Button Content="20分前"
+						Margin="10 0 0 0"
+						Command="{Binding PastTimeClick}"
+						CommandParameter="20"/>-->
+				<Button Content="10分前"
+						Command="{Binding PastTimeClick}"
+						CommandParameter="{Binding PastParameterValue.Value}"/>
+				<Button Content="20分前"
+						Margin="10 0 0 0"
+						Command="{Binding PastTimeClick}"
+						CommandParameter="{Binding PastParameterValue.Value}"/>
+				<TextBlock VerticalAlignment="Center"
+						   Margin="10 0 0 0"
+						   Text="10分前"/>
+				<ToggleButton Margin="10 0 0 0"
+							  IsChecked="{Binding PastParameter.Value}"/>
+				<TextBlock VerticalAlignment="Center"
+						   Margin="10 0 0 0"
+						   Text="20分前" />
+				<TextBlock VerticalAlignment="Center"
+						   Margin="10 0 0 0"
+						   Text="{Binding PastTime.Value}"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>
