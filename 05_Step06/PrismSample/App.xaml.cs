@@ -38,6 +38,8 @@ namespace PrismSample
 			containerRegistry.Register<IPersonRepository, PersonRepository>();
 			containerRegistry.Register<IDataAgent, DataAgent>();
 			containerRegistry.Register<Person>();
+
+			containerRegistry.RegisterInstance(this.Container);
 		}
 	}
 }

@@ -1,9 +1,7 @@
-﻿using System.Windows;
+﻿using System;
 using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Unity;
 using Prism.Ioc;
-using System;
+using Prism.Mvvm;
 
 namespace PrismSample.PrismMvvm
 {
@@ -53,7 +51,7 @@ namespace PrismSample.PrismMvvm
 		/// <summary>画面のデータを保存します。</summary>
 		void onSaveButtonClick()
 		{
-			using (var agent = (Application.Current as PrismApplication)?.Container.Resolve<IDataAgent>())
+			using (var agent = this.container.Resolve<IDataAgent>())
 			{
 				agent.SavePerson(this.person);
 			}
@@ -68,19 +66,22 @@ namespace PrismSample.PrismMvvm
 			if (!this.Id.HasValue)
 				return;
 
-			using (var agent = (Application.Current as PrismApplication)?.Container.Resolve<IDataAgent>())
+			using (var agent = this.container.Resolve<IDataAgent>())
 			{
 				agent.UpdatePerson(this.Id.Value, this.person);
 				this.RaisePropertyChanged(null);
 			}
 		}
 
+		private IContainerProvider container = null;
 		private Person person = null;
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="initPerson">インジェクションするPersonの初期値。</param>
-		public BindSamplePageViewModel(Person initPerson)
+		/// <param name="containerProvider">DIコンテナからインジェクションするIContainerProvider。</param>
+		public BindSamplePageViewModel(Person initPerson, IContainerProvider containerProvider)
 		{
+			this.container = containerProvider;
 			this.person = initPerson;
 
 			this.SearchButtonClick = new DelegateCommand(this.onSearchButtonClick, () => true);
