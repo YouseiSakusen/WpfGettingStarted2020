@@ -1,8 +1,6 @@
-﻿using System.Windows;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Ioc;
 using Prism.Mvvm;
-using Prism.Unity;
 
 namespace PrismSample
 {
@@ -11,9 +9,10 @@ namespace PrismSample
 	{
 		public DelegateCommand ExecuteAgent { get; }
 
+		/// <summary>Agentを実行します。</summary>
 		void onExecuteAgent()
 		{
-			using (var agent = (Application.Current as PrismApplication).Container.Resolve<DataAgent>())
+			using (var agent = this.container.Resolve<DataAgent>())
 			{
 				var person = agent?.GetPerson(1);
 			}
@@ -22,13 +21,16 @@ namespace PrismSample
 		/// <summary>データ読み書き用Agent。</summary>
 		//private DataAgent agent = null;
 
-		/// <summary>コンストラクタ。</summary>
-		/// <param name="dataAgent">データ読み書き用Agent。（DIコンテナからインジェクションされる）</param>
-		//public ViewSampleViewModel(DataAgent dataAgent)
-		public ViewSampleViewModel()
-		{
-			this.ExecuteAgent = new DelegateCommand(this.onExecuteAgent);
+		private IContainerProvider container = null;
 
+		/// <summary>コンストラクタ。</summary>
+		/// <param name="injectionContainer">インスタンス取得用DIコンテナ。（DIコンテナからインジェクションされる）</param>
+		//public ViewSampleViewModel(DataAgent dataAgent)
+		public ViewSampleViewModel(IContainerProvider injectionContainer)
+		{
+			this.container = injectionContainer;
+
+			this.ExecuteAgent = new DelegateCommand(this.onExecuteAgent);
 			//this.agent = dataAgent;
 		}
 	}

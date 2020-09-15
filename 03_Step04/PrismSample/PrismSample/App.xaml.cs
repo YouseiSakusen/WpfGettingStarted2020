@@ -38,6 +38,9 @@ namespace PrismSample
 		{
 			containerRegistry.Register<DataAgent>();
 			containerRegistry.Register<IPersonRepository, PersonRepository>();
+
+			containerRegistry.RegisterInstance(this.Container);
+			containerRegistry.RegisterInstance(containerRegistry);
 		}
 
 		private Mutex mutex = new Mutex(false, "HalationGhostPrismSample");
