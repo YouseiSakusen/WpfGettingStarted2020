@@ -11,7 +11,7 @@
 
 ## 03_Step04
 
-【[step: 4　Prism の DI コンテナらは Ioc 上に歌う](https://elf-mission.net/programming/wpf/getting-started-2020/step04/)】で紹介した Prism の DIコンテナを利用するサンプル。
+【[step: 4　Prism の DI コンテナらは Ioc 上に歌う](https://elf-mission.net/programming/wpf/getting-started-2020/step04/)】で紹介した Prism の DIコンテナを利用するサンプル。  加えて、IContainerProvider をインジェクションするサンプルも追加。
 
 ## 04_Step05
 
