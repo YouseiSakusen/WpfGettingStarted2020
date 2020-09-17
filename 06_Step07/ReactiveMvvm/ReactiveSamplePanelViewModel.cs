@@ -42,9 +42,9 @@ namespace PrismSample.ReactiveMvvm
 			}
 		}
 
-		private PersonSlim personSlim = null;
 		private CompositeDisposable disposables = new CompositeDisposable();
 		private Person person = new Person();
+		private PersonSlim personSlim = null;
 		private IContainerProvider container = null;
 
 		/// <summary>コンストラクタ。</summary>
@@ -54,9 +54,15 @@ namespace PrismSample.ReactiveMvvm
 			this.personSlim = initPerson;
 			this.personSlim.AddTo(this.disposables);
 
-			this.Id = this.personSlim.Id;
-			this.Name = this.personSlim.Name;
-			this.BirthDay = this.personSlim.BirthDay;
+			this.Id = this.personSlim.Id
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+				.AddTo(this.disposables);
+			this.Name = this.personSlim.Name
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+				.AddTo(this.disposables);
+			this.BirthDay = this.personSlim.BirthDay
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+				.AddTo(this.disposables);
 			this.Age = this.personSlim.Age
 				.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
