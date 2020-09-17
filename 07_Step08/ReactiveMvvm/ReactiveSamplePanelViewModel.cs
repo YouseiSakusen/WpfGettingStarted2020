@@ -119,25 +119,31 @@ namespace PrismSample.ReactiveMvvm
 		private ReactivePropertySlim<bool> hasId;
 		private ReactivePropertySlim<string> pastText;
 
-		/// <summary>コンストラクタ。</summary>
-		public ReactiveSamplePanelViewModel(PersonSlim person, IReactiveSamplePanelAdapter reactiveSamplePanelAdapter)
+		/// <summary>コンストラクタ</summary>
+		/// <param name="person">バインドプロパティの初期値に使用するPersonSlim。（DIコンテナからインジェクション）</param>
+		/// <param name="injectionContainer">オブジェクトのインスタンスを取得するIContainerProvider。（DIコンテナからインジェクション）</param>
+		/// <param name="reactiveSamplePanelAdapter"></param>
+		public ReactiveSamplePanelViewModel(PersonSlim person, IContainerProvider injectionContainer, IReactiveSamplePanelAdapter reactiveSamplePanelAdapter)
 		{
 			this.adapter = reactiveSamplePanelAdapter;
-			this.adapter.ContainerProvider = (Application.Current as PrismApplication)?.Container;
 
 			this.personSlim = person;
 			this.personSlim.AddTo(this.disposables);
-			this.container = (Application.Current as PrismApplication)?.Container;
+			this.container = injectionContainer;
 
 			this.hasId = new ReactivePropertySlim<bool>(false)
 				.AddTo(this.disposables);
 			this.pastText = new ReactivePropertySlim<string>(string.Empty)
 				.AddTo(this.disposables);
 
-			this.Id = this.personSlim.Id;
+			this.Id = this.personSlim.Id
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+				.AddTo(this.disposables);
 			this.Name = this.personSlim.Name
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
 				.AddTo(this.disposables);
 			this.BirthDay = this.personSlim.BirthDay
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
 				.AddTo(this.disposables);
 			this.Age = this.personSlim.Age
 				.ToReadOnlyReactivePropertySlim()
@@ -159,21 +165,19 @@ namespace PrismSample.ReactiveMvvm
 
 			this.CurrentMousePoint = new ReactivePropertySlim<string>(string.Empty)
 				.AddTo(this.disposables);
-			this.MousePoint = new ReactivePropertySlim<MouseEventArgs>(mode: ReactivePropertyMode.None);
-
-			this.Id.Subscribe(v => this.hasId.Value = v.HasValue)
+			this.MousePoint = new ReactivePropertySlim<MouseEventArgs>(mode: ReactivePropertyMode.None)
 				.AddTo(this.disposables);
+
+			this.Id.Subscribe(v => this.hasId.Value = v.HasValue);
 			this.PastParameterValue = this.PastParameter
 				.Select(v => v ? 20 : 10)
 				.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
-			this.MousePoint.Subscribe(a => this.onMousePoint(a))
-				.AddTo(this.disposables);
+			this.MousePoint.Subscribe(a => this.onMousePoint(a));
 
 			this.LoadClick = this.hasId
 				.ToAsyncReactiveCommand()
-				.WithSubscribe(() => this.onLoadClick())
-				.AddTo(this.disposables);
+				.WithSubscribe(() => this.onLoadClick());
 
 			//this.LoadClick = new ReactiveCommand(this.hasId)
 			//	.WithSubscribe(() => this.onLoadClick())

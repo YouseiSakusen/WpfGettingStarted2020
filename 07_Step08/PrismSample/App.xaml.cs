@@ -38,6 +38,7 @@ namespace PrismSample
 			containerRegistry.Register<IReactiveSamplePanelAdapter, ReactiveSamplePanelAdapter>();
 			containerRegistry.Register<PersonSlim>();
 			containerRegistry.RegisterInstance(MapperFactory.GetMapper());
+			containerRegistry.RegisterInstance(this.Container);
 		}
 	}
 }

@@ -18,6 +18,5 @@
     <ProjectReference Include="..\ReactiveMvvm\ReactiveMvvm.csproj" />
     <ProjectReference Include="..\SampleAppLogics\SampleAppLogics.csproj" />
     <ProjectReference Include="..\SampleDataAccess\SampleDataAccess.csproj" />
-    <ProjectReference Include="..\SampleModelMapper\SampleModelMapper.csproj" />
   </ItemGroup>
 </Project>

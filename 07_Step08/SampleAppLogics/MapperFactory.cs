@@ -14,9 +14,13 @@ namespace PrismSample
 			var conf = new MapperConfiguration(c =>
 			{
 				c.CreateMap<int?, ReactivePropertySlim<int?>>().ConvertUsing<RpSlimNullableIntConverter>();
+				c.CreateMap<ReactivePropertySlim<int?>, int?>().ConvertUsing<ToRpSlimNullableIntConverter>();
 				c.CreateMap<string, ReactivePropertySlim<string>>().ConvertUsing<RpSlimStringConverter>();
+				c.CreateMap<ReactivePropertySlim<string>, string>().ConvertUsing<ToRpSlimStringConverter>();
 				c.CreateMap<DateTime?, ReactivePropertySlim<DateTime?>>().ConvertUsing<RpSlimNullableDateTimeConverter>();
-				c.CreateMap<PersonDto, PersonSlim>();
+				c.CreateMap<ReactivePropertySlim<DateTime?>, DateTime?>().ConvertUsing<ToRpSlimNullableDateTimeConverter>();
+				c.CreateMap<PersonDto, PersonSlim>()
+				 .ReverseMap();
 				c.CreateMap<PersonDto, PersonDto>();
 				c.CreateMap<PersonDto, PlanePerson>()
 				 .ForMember(d => d.Sex, o => o.Ignore());
@@ -39,6 +43,13 @@ namespace PrismSample
 		}
 	}
 
+	/// <summary>ReactivePropertySlim<int?>をint?にコンバートします。</summary>
+	class ToRpSlimNullableIntConverter : ITypeConverter<ReactivePropertySlim<int?>, int?>
+	{
+		public int? Convert(ReactivePropertySlim<int?> source, int? destination, ResolutionContext context)
+			=> source.Value;
+	}
+
 	/// <summary>stringをReactivePropertySlim<string>にコンバートします。</summary>
 	class RpSlimStringConverter : ITypeConverter<string, ReactivePropertySlim<string>>
 	{
@@ -50,6 +61,13 @@ namespace PrismSample
 		}
 	}
 
+	/// <summary>ReactivePropertySlim<string>をstringにコンバートします。</summary>
+	class ToRpSlimStringConverter : ITypeConverter<ReactivePropertySlim<string>, string>
+	{
+		public string Convert(ReactivePropertySlim<string> source, string destination, ResolutionContext context)
+			=> source.Value;
+	}
+
 	/// <summary>DateTime?をReactivePropertySlim<DateTime?>にコンバートします。</summary>
 	class RpSlimNullableDateTimeConverter : ITypeConverter<DateTime?, ReactivePropertySlim<DateTime?>>
 	{
@@ -59,5 +77,12 @@ namespace PrismSample
 
 			return destination;
 		}
+	}
+
+	/// <summary>ReactivePropertySlim<DateTime?>をDateTime?にコンバートします。</summary>
+	class ToRpSlimNullableDateTimeConverter : ITypeConverter<ReactivePropertySlim<DateTime?>, DateTime?>
+	{
+		public DateTime? Convert(ReactivePropertySlim<DateTime?> source, DateTime? destination, ResolutionContext context)
+			=> source.Value;
 	}
 }

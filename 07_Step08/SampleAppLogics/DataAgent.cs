@@ -60,6 +60,9 @@ namespace PrismSample
 			Debug.WriteLine("マッピング後src :" + src.ToString());
 			Debug.WriteLine("マッピング後person :" + person.ToString());
 
+			var revMap = new PersonDto();
+			this.mapper.Map<PersonSlim, PersonDto>(person, revMap);
+
 
 			//var dest = new PersonDto();
 
