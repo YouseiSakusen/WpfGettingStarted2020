@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Disposables;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Reactive.Bindings;
@@ -31,35 +32,44 @@ namespace PrismSample.ReactiveMvvm
 
 		public ReadOnlyReactivePropertySlim<int> Age { get; }
 
+		public ReactiveCommand SearchButtonClick { get; }
+
+		private void onSearchButtonClick()
+		{
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				agent.UpdatePersonSlimAsync(this.Id.Value.Value, this.personSlim);
+			}
+		}
+
+		private PersonSlim personSlim = null;
 		private CompositeDisposable disposables = new CompositeDisposable();
 		private Person person = new Person();
-		private PersonSlim personSlim = null;
+		private IContainerProvider container = null;
 
 		/// <summary>コンストラクタ。</summary>
-		public ReactiveSamplePanelViewModel(IDataAgent dataAgent, PersonSlim initPerson)
+		public ReactiveSamplePanelViewModel(IContainerProvider containerProvider, PersonSlim initPerson)
 		{
+			this.container = containerProvider;
 			this.personSlim = initPerson;
 			this.personSlim.AddTo(this.disposables);
 
-			this.Id = this.personSlim.Id
-				.AddTo(this.disposables);
-			this.Name = this.personSlim.Name
-				.AddTo(this.disposables);
-			this.BirthDay = this.personSlim.BirthDay
-				.AddTo(this.disposables);
+			this.Id = this.personSlim.Id;
+			this.Name = this.personSlim.Name;
+			this.BirthDay = this.personSlim.BirthDay;
 			this.Age = this.personSlim.Age
 				.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
 
-			// PersonSlimと双方向でバインドするReactiveProperty
+			//// PersonSlimと双方向でバインドするReactiveProperty
 			//this.Id = this.personSlim.Id
-			//	.ToReactiveProperty()
+			//	.ToReactivePropertyAsSynchronized(x => x.Value)
 			//	.AddTo(this.disposables);
 			//this.Name = this.personSlim.Name
-			//	.ToReactiveProperty()
+			//	.ToReactivePropertyAsSynchronized(x => x.Value)
 			//	.AddTo(this.disposables);
 			//this.BirthDay = this.personSlim.BirthDay
-			//	.ToReactiveProperty()
+			//	.ToReactivePropertyAsSynchronized(x => x.Value)
 			//	.AddTo(this.disposables);
 
 			// BindableBaseと双方向でバインドするReactiveProperty
@@ -80,6 +90,10 @@ namespace PrismSample.ReactiveMvvm
 			//	.AddTo(this.disposables);
 			//this.BirthDay = new ReactivePropertySlim<DateTime?>(new DateTime(1998, 7, 15))
 			//	.AddTo(this.disposables);
+
+			this.SearchButtonClick = new ReactiveCommand()
+				.WithSubscribe(() => this.onSearchButtonClick())
+				.AddTo(this.disposables);
 		}
 
 		/// <summary>部分Viewを破棄します。</summary>

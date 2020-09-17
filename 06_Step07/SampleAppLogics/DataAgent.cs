@@ -25,6 +25,21 @@ namespace PrismSample
 			//person.BirthDay.Value = temp.BirthDay;
 		}
 
+		public async Task UpdatePersonSlim(int id, PersonSlim person)
+		{
+			var temp = await this.personRepository.GetPersonSlimAsync();
+
+			person.Id.Value = temp.Id.Value;
+			person.Name.Value = temp.Name.Value;
+			person.BirthDay.Value = temp.BirthDay.Value;
+
+			//var temp = await this.personRepository.GetPersonAsync(id);
+
+			//person.Id.Value = temp.Id;
+			//person.Name.Value = temp.Name;
+			//person.BirthDay.Value = temp.BirthDay;
+		}
+
 		public void SavePerson(Person person)
 		{
 			this.personRepository.SavePerson(person);
