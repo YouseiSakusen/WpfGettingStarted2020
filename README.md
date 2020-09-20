@@ -24,3 +24,7 @@
 ## 06_Step07
 
 【[step: 7　ReactiveProperty を編む](https://elf-mission.net/programming/wpf/getting-started-2020/step07/)】で紹介した ReactiveProperty で View ⇔ ViewModel 間 Model ⇔ ViewModel 間を双方向でバインドするサンプル。
+
+## 07_Step08
+
+【[AutoMapper で ReactiveProperty にマッピング](https://elf-mission.net/programming/wpf/wpf-library/automapper/)】で紹介した AutoMapper で ReactiveProperty 型のプロパティにマッピングするカスタム型コンバータ等のサンプル。
