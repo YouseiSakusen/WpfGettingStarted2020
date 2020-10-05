@@ -38,14 +38,24 @@ namespace PrismSample
 			}
 		}
 
-		public static void XmlSerializeToFile<T>(string xmlPath, T data)
+		public async static Task XmlSerializeToFile<T>(string xmlPath, T data)
 		{
-			using (var writer = new StreamWriter(xmlPath, false, Encoding.UTF8))
+			await using (var writer = new StreamWriter(xmlPath, false, Encoding.UTF8))
 			{
 				var serializer = new XmlSerializer(typeof(T));
 
 				serializer.Serialize(writer, data);
-				writer.Flush();
+				await writer.FlushAsync();
+			}
+		}
+
+		public static T XmlDeserializedFromFileAsync<T>(string xmlPath) where T: class
+		{
+			using (var reader = new StreamReader(xmlPath, Encoding.UTF8))
+			{
+				var serializer = new XmlSerializer(typeof(T));
+
+				return (T)serializer.Deserialize(reader);
 			}
 		}
 

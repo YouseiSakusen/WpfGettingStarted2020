@@ -12,6 +12,19 @@ namespace PrismSample
 
 		}
 
+		/// <summary>PersonDtoをXMLファイルに保存します。</summary>
+		/// <param name="person">保存するPersonDto。</param>
+		/// <returns>非同期処理を表すTask。</returns>
+		public async Task SavePersonAsync(PersonDto person)
+		{
+			var xmlPath = Path.Combine(SampleUtilities.GetExecutingPath(), "Bleach.xml");
+
+			await Task.Run(async () =>
+			{
+				await SampleUtilities.XmlSerializeToFile<PersonDto>(xmlPath, person);
+			});
+		}
+
 		public async Task SavePersonSlimAsync(PersonSlim person)
 		{
 			//return Task.Run(() =>
@@ -27,6 +40,27 @@ namespace PrismSample
 			{
 				//SampleUtilities.SerializeMessagePack<PersonSlim>(dirPath, person);
 			});
+		}
+
+		/// <summary>XMLファイルからPersonDtoを取得します。</summary>
+		/// <returns>XMLファイルから取得したPersonDto。</returns>
+		public Task<PersonDto> GetPersonDtoAsync()
+		{
+			var task = Task.Run(() =>
+			{
+				var xmlPath = Path.Combine(SampleUtilities.GetExecutingPath(), "Bleach_src.xml");
+
+				return SampleUtilities.XmlDeserializedFromFileAsync<PersonDto>(xmlPath);
+
+				//return new PersonDto()
+				//{
+				//	Id = 1,
+				//	Name = "黒崎一護",
+				//	BirthDay = new DateTime(1998, 7, 15)
+				//};
+			});
+
+			return task;
 		}
 
 		public Person GetPerson(int id)
@@ -61,6 +95,8 @@ namespace PrismSample
 			return new PersonSlim(1, "黒崎一護", new DateTime(1998, 7, 15));
 		}
 
+		/// <summary>PersonSlimを取得します。</summary>
+		/// <returns>取得したPersonSlim。</returns>
 		public Task<PersonSlim> GetPersonSlimAsync()
 		{
 			return Task.Run(() =>

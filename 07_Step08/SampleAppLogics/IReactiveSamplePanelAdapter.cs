@@ -1,11 +1,14 @@
-﻿using Prism.Ioc;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace PrismSample
 {
-	public interface IReactiveSamplePanelAdapter
+	public interface IReactiveSamplePanelAdapter : IDisposable
 	{
-		public IContainerProvider ContainerProvider { get; set; }
-
 		public PersonSlim Person { get; }
+
+		public Task UpdatePersonAsync();
+
+		public Task SavePersonAsync();
 	}
 }

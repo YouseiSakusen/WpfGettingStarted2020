@@ -22,21 +22,28 @@ namespace PrismSample
 			if (!id.HasValue)
 				return;
 
-			var temp = await this.personRepository.GetPersonSlimAsync();
+			this.mapper.Map<PersonDto, PersonSlim>(await this.personRepository.GetPersonDtoAsync(), person);
 
-			person.Id.Value = temp.Id.Value;
-			person.Name.Value = temp.Name.Value;
-			person.BirthDay.Value = temp.BirthDay.Value;
+			//var temp = await this.personRepository.GetPersonSlimAsync();
+
+			//person.Id.Value = temp.Id.Value;
+			//person.Name.Value = temp.Name.Value;
+			//person.BirthDay.Value = temp.BirthDay.Value;
+		}
+
+		/// <summary>PersonSlimをPersonDtoに移し替えてXMLファイルに保存します。</summary>
+		/// <param name="person">XMLファイルに保存するPersonSlim。</param>
+		/// <returns>非同期処理を表すTask。</returns>
+		public async Task SavePersonSlimAsync(PersonSlim person)
+		{
+			var personDto = this.mapper.Map<PersonSlim, PersonDto>(person);
+
+			await this.personRepository.SavePersonAsync(personDto);
 		}
 
 		public void SavePerson(Person person)
 		{
 			this.personRepository.SavePerson(person);
-		}
-
-		public async Task SavePersonSlimAsync(PersonSlim person)
-		{
-			await this.personRepository.SavePersonSlimAsync(person);
 		}
 
 		public void UpdatePerson(int id, Person person)

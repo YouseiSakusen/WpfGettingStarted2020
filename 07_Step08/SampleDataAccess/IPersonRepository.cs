@@ -17,6 +17,10 @@ namespace PrismSample
 
 		public Task SavePersonSlimAsync(PersonSlim person);
 
+		public Task SavePersonAsync(PersonDto person);
+
 		public PersonDto GetPersonDto();
+
+		public Task<PersonDto> GetPersonDtoAsync();
 	}
 }

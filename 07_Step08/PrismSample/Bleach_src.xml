@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PersonDto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>1</Id>
+  <Name>黒崎一護</Name>
+  <Kana />
+  <BirthDay>1998-07-15T00:00:00</BirthDay>
+</PersonDto>
