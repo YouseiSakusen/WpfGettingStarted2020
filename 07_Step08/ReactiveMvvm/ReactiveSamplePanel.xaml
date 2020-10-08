@@ -74,7 +74,7 @@
 							md:HintAssist.Hint="誕生日"
 							Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
 							SelectedDate="{Binding BirthDay.Value, Mode=TwoWay}"/>
-				<TextBox Margin="10, 0, 0, 4"
+				<TextBox Margin="10, 0, 0, 1"
 						 IsReadOnly="True"
 						 HorizontalContentAlignment="Right"
 						 md:HintAssist.Hint="年齢"
