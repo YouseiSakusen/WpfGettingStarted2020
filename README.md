@@ -27,4 +27,7 @@
 
 ## 07_Step08
 
-【[AutoMapper で ReactiveProperty にマッピング](https://elf-mission.net/programming/wpf/wpf-library/automapper/)】で紹介した AutoMapper で ReactiveProperty 型のプロパティにマッピングするカスタム型コンバータ等のサンプル。
+【step: 8　[Model のインタフェースの上に ReactiveCommand は立っている](https://elf-mission.net/programming/wpf/getting-started-2020/step08/)】で紹介した ReactiveProperty で View ⇔ ViewModel 間 Model ⇔ ViewModel 間を双方向でバインドした VM から呼び出す Model のインタフェースサンプル。  
+【[AutoMapper で ReactiveProperty にマッピング](https://elf-mission.net/programming/wpf/wpf-library/automapper/)】で紹介した AutoMapper で ReactiveProperty 型のプロパティにマッピングするカスタム型コンバータ等のサンプルも同じソリューションに含めています。
+
+
