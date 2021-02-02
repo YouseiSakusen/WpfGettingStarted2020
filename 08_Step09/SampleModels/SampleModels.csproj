@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>PrismSample</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+    <PackageReference Include="ReactiveProperty" Version="7.5.1" />
+  </ItemGroup>
+
+</Project>

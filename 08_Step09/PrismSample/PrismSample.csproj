@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>PrismSample</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.3" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.7" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.5" />
+    <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrismMvvm\PrismMvvm.csproj" />
+    <ProjectReference Include="..\ReactiveMvvm\ReactiveMvvm.csproj" />
+    <ProjectReference Include="..\SampleAppLogics\SampleAppLogics.csproj" />
+    <ProjectReference Include="..\SampleDataAccess\SampleDataAccess.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Bleach_src.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

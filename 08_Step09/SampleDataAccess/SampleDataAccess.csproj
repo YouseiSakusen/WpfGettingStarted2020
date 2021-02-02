@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>PrismSample</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SampleModels\SampleModels.csproj" />
+  </ItemGroup>
+
+</Project>
