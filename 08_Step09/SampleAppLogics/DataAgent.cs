@@ -92,16 +92,43 @@ namespace PrismSample
 			//person.CompareProperties();
 		}
 
+		/// <summary>キャラクターを非同期で検索します。</summary>
+		/// <param name="searchCondition">検索条件を表すPersonSlim。</param>
+		/// <param name="persons">検索結果を格納するObservableCollection<PersonSlim>。</param>
+		/// <returns>非同期のTask。</returns>
 		public async Task SearchCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons)
 		{
-			var dtoList = await this.personRepository.SearchCharacters(searchCondition);
+			var dtoList = await this.personRepository.SearchCharactersAsync(searchCondition);
 			List<PersonSlim> personRetList = this.mapper.Map<List<PersonDto>, List<PersonSlim>>(dtoList);
 
-            persons.AddRange(personRetList);
-        }
+			persons.AddRange(personRetList);
+		}
+
+		public Task SearchFewCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons)
+		{
+			return Task.Run(() =>
+			{
+				var dtoList = this.personRepository.SearchFewCharacters(searchCondition);
+				List<PersonSlim> personRetList = this.mapper.Map<List<PersonDto>, List<PersonSlim>>(dtoList);
+
+				persons.AddRange(personRetList);
+			});
+		}
+
+		public Task AddRandamCharacter(ObservableCollection<PersonSlim> persons)
+		{
+			return Task.Run(() =>
+			{
+				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
+
+				persons.Add(this.mapper.Map<PersonDto, PersonSlim>(tempDto));
+			});
+		}
 
 		private IPersonRepository personRepository = null;
 		private IMapper mapper = null;
+		private List<PersonDto> bleachAllCharacters = null;
+		private Random randomIndex = new Random();
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="personRepo">DIコンテナからインジェクションされるIPersonRepository。</param>
@@ -109,6 +136,8 @@ namespace PrismSample
 		{
 			this.personRepository = personRepo;
 			this.mapper = injectionMapper;
+
+			this.bleachAllCharacters = this.personRepository.SearchCharacters(null);
 		}
 
 		#region IDisposable
@@ -145,6 +174,6 @@ namespace PrismSample
 			GC.SuppressFinalize(this);
 		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -45,6 +45,7 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>現在のマウス座標を取得・設定します。</summary>
 		public ReactivePropertySlim<string> CurrentMousePoint { get; }
 
+		/// <summary>ListBoxに表示するBLEACHキャラクターを取得します。</summary>
 		public ReadOnlyReactiveCollection<BleachListItemViewModel> SearchResults { get; }
 
 		/// <summary>読込ボタンClickコマンド</summary>
@@ -52,18 +53,25 @@ namespace PrismSample.ReactiveMvvm
 
 		public AsyncReactiveCommand SaveButtonClick { get; }
 
-        public AsyncReactiveCommand SearchButtonClick { get; }
+		/// <summary>検索ボタンClickコマンド。</summary>
+		public AsyncReactiveCommand SearchButtonClick { get; }
 
-        // ####################### Adapterを使用した場合 #######################
+		public AsyncReactiveCommand AddCharacterClick { get; }
 
-        /// <summary>読込処理</summary>
-        private async Task onLoadClick()
+		public AsyncReactiveCommand ClearButtonClick { get; }
+
+		// ####################### Adapterを使用した場合 #######################
+
+		/// <summary>読込処理</summary>
+		private async Task onLoadClick()
 			=> await this.adapter.UpdatePersonAsync();
 
 		private CompositeDisposable disposables = new CompositeDisposable();
 		private IReactiveSamplePanelAdapter adapter = null;
 		private ReactivePropertySlim<bool> hasId;
 
+		/// <summary>コンストラクタ。</summary>
+		/// <param name="samplePanelAdapter">ReactiveSamplePanel用アダプタを表すIReactiveSamplePanelAdapter。（DIコンテナからインジェクションされる。）</param>
 		public ReactiveSamplePanelViewModel(IReactiveSamplePanelAdapter samplePanelAdapter)
 		{
 			this.adapter = samplePanelAdapter;
@@ -91,7 +99,7 @@ namespace PrismSample.ReactiveMvvm
 				.ToReadOnlyReactiveCollection(x => new BleachListItemViewModel(x))
 				.AddTo(this.disposables);
 
-            this.LoadClick = this.hasId
+			this.LoadClick = this.hasId
 				.ToAsyncReactiveCommand()
 				.WithSubscribe(() => this.onLoadClick())
 				.AddTo(this.disposables);
@@ -101,7 +109,15 @@ namespace PrismSample.ReactiveMvvm
 				.AddTo(this.disposables);
 
 			this.SearchButtonClick = new AsyncReactiveCommand()
-				.WithSubscribe(async () => await this.adapter.SearchCharacterAsync())
+				.WithSubscribe(() => this.adapter.SearchCharacterAsync())
+				.AddTo(this.disposables);
+
+			this.ClearButtonClick = new AsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.ClearAllCharacters())
+				.AddTo(this.disposables);
+
+			this.AddCharacterClick = new AsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.AddRandomCharacter())
 				.AddTo(this.disposables);
 		}
 

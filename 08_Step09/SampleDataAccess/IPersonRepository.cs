@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PrismSample
 {
-    public interface IPersonRepository : IDisposable
+	public interface IPersonRepository : IDisposable
 	{
 		public Person GetPerson(int id);
 
@@ -24,6 +24,10 @@ namespace PrismSample
 
 		public Task<PersonDto> GetPersonDtoAsync();
 
-		public Task<List<PersonDto>> SearchCharacters(PersonSlim condition);
+		public Task<List<PersonDto>> SearchCharactersAsync(PersonSlim condition);
+
+		public List<PersonDto> SearchCharacters(PersonSlim condition);
+
+		public List<PersonDto> SearchFewCharacters(PersonSlim condition);
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Prism.Ioc;
+using Reactive.Bindings;
 
 namespace PrismSample
 {
@@ -10,11 +11,13 @@ namespace PrismSample
 		/// <summary>ViewとバインドするPersonSlimを取得します。</summary>
 		public PersonSlim Person { get; }
 
-        public ObservableCollection<PersonSlim> SearchResults { get; }
+		public ObservableCollection<PersonSlim> SearchResults { get; }
 
-        /// <summary>PersonSlimを更新します。</summary>
-        /// <returns>処理を実行するTask。</returns>
-        public async Task UpdatePersonAsync()
+		public ReadOnlyReactivePropertySlim<int> SearchResultCount { get; }
+
+		/// <summary>PersonSlimを更新します。</summary>
+		/// <returns>処理を実行するTask。</returns>
+		public async Task UpdatePersonAsync()
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
@@ -34,11 +37,22 @@ namespace PrismSample
 
 		public async Task SearchCharacterAsync()
 		{
-            using (var agent = this.container.Resolve<IDataAgent>())
-            {
-				await agent.SearchCharacterAsync(this.Person, this.SearchResults);
-            }
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				await agent.SearchFewCharacterAsync(this.Person, this.SearchResults);
+			}
 		}
+
+		public async Task AddRandomCharacter()
+		{
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				await agent.AddRandamCharacter(this.SearchResults);
+			}
+		}
+
+		public Task ClearAllCharacters()
+			=> Task.Run(() => this.SearchResults.Clear());
 
 		private IContainerProvider container = null;
 
@@ -83,5 +97,5 @@ namespace PrismSample
 			Dispose(disposing: true);
 			System.GC.SuppressFinalize(this);
 		}
-    }
+	}
 }

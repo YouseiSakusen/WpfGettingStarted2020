@@ -19,5 +19,9 @@ namespace PrismSample
 		public void TestMapper(PersonSlim person);
 
 		public Task SearchCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
+
+		public Task SearchFewCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
+
+		public Task AddRandamCharacter(ObservableCollection<PersonSlim> persons);
 	}
 }
