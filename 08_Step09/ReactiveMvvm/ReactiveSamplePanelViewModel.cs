@@ -24,6 +24,9 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>誕生日を取得・設定します。</summary>
 		public ReactivePropertySlim<DateTime?> BirthDay { get; }
 
+		/// <summary>斬魄刀銘を取得・設定します。</summary>
+		public ReactivePropertySlim<string> Zanpakuto { get; }
+
 		/// <summary>年齢を取得します。</summary>
 		public ReadOnlyReactivePropertySlim<int> Age { get; }
 
@@ -48,6 +51,10 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>ListBoxに表示するBLEACHキャラクターを取得します。</summary>
 		public ReadOnlyReactiveCollection<BleachListItemViewModel> SearchResults { get; }
 
+		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
+
+		public ReactivePropertySlim<BleachListItemViewModel> SelectedCharacter { get; }
+
 		/// <summary>読込ボタンClickコマンド</summary>
 		public AsyncReactiveCommand LoadClick { get; }
 
@@ -71,7 +78,7 @@ namespace PrismSample.ReactiveMvvm
 		private ReactivePropertySlim<bool> hasId;
 
 		/// <summary>コンストラクタ。</summary>
-		/// <param name="samplePanelAdapter">ReactiveSamplePanel用アダプタを表すIReactiveSamplePanelAdapter。（DIコンテナからインジェクションされる。）</param>
+		/// <param name="samplePanelAdapter">ReactiveSamplePanel用アダプタを表すIReactiveSamplePanelAdapter。（DIコンテナからインジェクション。）</param>
 		public ReactiveSamplePanelViewModel(IReactiveSamplePanelAdapter samplePanelAdapter)
 		{
 			this.adapter = samplePanelAdapter;
@@ -89,11 +96,20 @@ namespace PrismSample.ReactiveMvvm
 			this.BirthDay = this.adapter.Person.BirthDay
 				.ToReactivePropertySlimAsSynchronized(x => x.Value)
 				.AddTo(this.disposables);
+			this.Zanpakuto = this.adapter.Person.Zanpakuto
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+				.AddTo(this.disposables);
 			this.Age = this.adapter.Person.Age
 				.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
 
 			this.Id.Subscribe(v => this.hasId.Value = v.HasValue);
+
+			this.SelectedCharacterIndex = this.adapter.SelectedCharacterIndex
+				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+				.AddTo(this.disposables);
+			this.SelectedCharacter = new ReactivePropertySlim<BleachListItemViewModel>(null)
+				.AddTo(this.disposables);
 
 			this.SearchResults = this.adapter.SearchResults
 				.ToReadOnlyReactiveCollection(x => new BleachListItemViewModel(x))

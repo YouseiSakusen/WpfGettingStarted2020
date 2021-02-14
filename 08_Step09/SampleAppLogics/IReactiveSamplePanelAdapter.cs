@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reactive.Bindings;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ namespace PrismSample
 		public PersonSlim Person { get; }
 
 		public ObservableCollection<PersonSlim> SearchResults { get; }
+
+		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
 
 		public Task UpdatePersonAsync();
 

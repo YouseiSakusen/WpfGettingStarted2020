@@ -55,7 +55,7 @@
 						   Margin="50 0 0 0"
 						   Text="{Binding CurrentMousePoint.Value}" />
 			</StackPanel>
-			<StackPanel Grid.Row="1"
+			<!--<StackPanel Grid.Row="1"
 						Orientation="Horizontal">
 				<TextBox Width="250"
 						 md:HintAssist.Hint="名前"
@@ -68,7 +68,22 @@
 				<TextBlock Text="{Binding NowDateTime.Value}"
 						   VerticalAlignment="Center"
 						   Margin="10 0 0 0"/>
-			</StackPanel>
+			</StackPanel>-->
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.5*"/>
+					<ColumnDefinition Width="0.5*"/>
+				</Grid.ColumnDefinitions>
+				<TextBox Grid.Column="0"
+						 md:HintAssist.Hint="名前"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Margin="0 0 20 0"
+						 Text="{Binding Name.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBox Grid.Column="1"
+						 md:HintAssist.Hint="斬魄刀"
+						 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+						 Text="{Binding Zanpakuto.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			</Grid>
 			<StackPanel Grid.Row="2"
 						Orientation="Horizontal">
 				<DatePicker Grid.Row="2" Width="100"
@@ -153,7 +168,9 @@
 						 VirtualizingPanel.VirtualizationMode="Recycling"
 						 VirtualizingPanel.ScrollUnit="Pixel"
 						 ItemsSource="{Binding SearchResults}"
-						 HorizontalContentAlignment="Stretch">
+						 HorizontalContentAlignment="Stretch"
+						 SelectedIndex="{Binding SelectedCharacterIndex.Value}"
+						 SelectedItem="{Binding SelectedCharacter.Value}">
 					<ListBox.ItemTemplate>
 						<DataTemplate DataType="{x:Type local:BleachListItemViewModel}">
 							<Grid>
@@ -163,8 +180,8 @@
 								</Grid.RowDefinitions>
 								<Grid Grid.Row="0">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="0.35*"/>
-										<ColumnDefinition Width="0.65*"/>
+										<ColumnDefinition Width="0.45*"/>
+										<ColumnDefinition Width="0.55*"/>
 									</Grid.ColumnDefinitions>
 									<Grid Grid.Column="0">
 										<Grid.RowDefinitions>

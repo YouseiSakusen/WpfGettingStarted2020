@@ -115,6 +115,9 @@ namespace PrismSample
 			});
 		}
 
+		/// <summary>キャラクターをランダムに追加します。</summary>
+		/// <param name="persons">追加先のObservableCollection<PersonSlim>。</param>
+		/// <returns>非同期のTask。</returns>
 		public Task AddRandamCharacter(ObservableCollection<PersonSlim> persons)
 		{
 			return Task.Run(() =>

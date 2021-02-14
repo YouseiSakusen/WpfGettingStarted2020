@@ -15,21 +15,21 @@ namespace PrismSample
 		/// <summary>名前を取得・設定します。</summary>
 		public ReactivePropertySlim<string> Name { get; }
 
-        public ReactivePropertySlim<string> LastNameKana { get; }
+		public ReactivePropertySlim<string> LastNameKana { get; }
 
-        public ReactivePropertySlim<string> FirstNameKana { get; }
+		public ReactivePropertySlim<string> FirstNameKana { get; }
 
-        /// <summary>誕生日を取得・設定します。</summary>
-        public ReactivePropertySlim<DateTime?> BirthDay { get; }
+		/// <summary>誕生日を取得・設定します。</summary>
+		public ReactivePropertySlim<DateTime?> BirthDay { get; }
 
 		/// <summary>年齢を取得します。</summary>
 		public ReadOnlyReactivePropertySlim<int> Age { get; }
 
-        public ReactivePropertySlim<string> Zanpakuto { get; }
+		public ReactivePropertySlim<string> Zanpakuto { get; }
 
-        /// <summary>受け取ったPersonDtoの値に更新します。</summary>
-        /// <param name="person">更新元のPersonDto。</param>
-        public void UpdateFrom(PersonDto person)
+		/// <summary>受け取ったPersonDtoの値に更新します。</summary>
+		/// <param name="person">更新元のPersonDto。</param>
+		public void UpdateFrom(PersonDto person)
 		{
 			this.Id.Value = Convert.ToInt32(person.Id);
 			this.Name.Value = person.Name;
@@ -83,6 +83,8 @@ namespace PrismSample
 				.AddTo(this.disposables);
 			this.BirthDay = new ReactivePropertySlim<DateTime?>(birthDay)
 				.AddTo(this.disposables);
+			this.Zanpakuto = new ReactivePropertySlim<string>(string.Empty)
+				.AddTo(this.disposables);
 			this.Age = this.calcAge.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
 
@@ -103,14 +105,17 @@ namespace PrismSample
 						  string firstNameKana, 
 						  DateTime? birthDay, 
 						  string zanpakuto) : this(id, name, birthDay)
-        {
+		{
 			this.LastNameKana = new ReactivePropertySlim<string>(lastNameKana)
 				.AddTo(this.disposables);
 			this.FirstNameKana = new ReactivePropertySlim<string>(firstNameKana)
 				.AddTo(this.disposables);
+
+			if (this.Zanpakuto != null)
+				this.Zanpakuto.Dispose();
 			this.Zanpakuto = new ReactivePropertySlim<string>(zanpakuto)
 				.AddTo(this.disposables);
-        }
+		}
 
 		/// <summary>インスタンスを破棄します。</summary>
 		/// <param name="disposing">Dispose処理中かを表すbool。</param>
