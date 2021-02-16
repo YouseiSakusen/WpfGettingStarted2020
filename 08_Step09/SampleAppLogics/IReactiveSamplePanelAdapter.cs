@@ -22,5 +22,7 @@ namespace PrismSample
 		public Task AddRandomCharacter();
 
 		public Task ClearAllCharacters();
+
+		public Task InsertRandomCharacter();
 	}
 }

@@ -65,9 +65,16 @@ namespace PrismSample.ReactiveMvvm
 
 		public AsyncReactiveCommand AddCharacterClick { get; }
 
+		public AsyncReactiveCommand InsertButtonClick { get; }
+
 		public AsyncReactiveCommand ClearButtonClick { get; }
 
 		// ####################### Adapterを使用した場合 #######################
+
+		private void searchResultChanged()
+		{
+
+		}
 
 		/// <summary>読込処理</summary>
 		private async Task onLoadClick()
@@ -76,6 +83,7 @@ namespace PrismSample.ReactiveMvvm
 		private CompositeDisposable disposables = new CompositeDisposable();
 		private IReactiveSamplePanelAdapter adapter = null;
 		private ReactivePropertySlim<bool> hasId;
+		public ReactivePropertySlim<bool> hasListItem { get; }
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="samplePanelAdapter">ReactiveSamplePanel用アダプタを表すIReactiveSamplePanelAdapter。（DIコンテナからインジェクション。）</param>
@@ -85,6 +93,8 @@ namespace PrismSample.ReactiveMvvm
 			this.adapter.AddTo(this.disposables);
 
 			this.hasId = new ReactivePropertySlim<bool>(false)
+				.AddTo(this.disposables);
+			this.hasListItem = new ReactivePropertySlim<bool>(false)
 				.AddTo(this.disposables);
 
 			this.Id = this.adapter.Person.Id
@@ -114,6 +124,7 @@ namespace PrismSample.ReactiveMvvm
 			this.SearchResults = this.adapter.SearchResults
 				.ToReadOnlyReactiveCollection(x => new BleachListItemViewModel(x))
 				.AddTo(this.disposables);
+			//this.SearchResults.Subscribe(_ => this.searchResultChanged());
 
 			this.LoadClick = this.hasId
 				.ToAsyncReactiveCommand()
@@ -134,6 +145,10 @@ namespace PrismSample.ReactiveMvvm
 
 			this.AddCharacterClick = new AsyncReactiveCommand()
 				.WithSubscribe(() => this.adapter.AddRandomCharacter())
+				.AddTo(this.disposables);
+
+			this.InsertButtonClick = this.hasListItem
+				.ToAsyncReactiveCommand()
 				.AddTo(this.disposables);
 		}
 

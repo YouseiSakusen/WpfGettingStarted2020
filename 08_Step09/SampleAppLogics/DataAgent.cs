@@ -118,13 +118,23 @@ namespace PrismSample
 		/// <summary>キャラクターをランダムに追加します。</summary>
 		/// <param name="persons">追加先のObservableCollection<PersonSlim>。</param>
 		/// <returns>非同期のTask。</returns>
-		public Task AddRandamCharacter(ObservableCollection<PersonSlim> persons)
+		public Task AddRandomCharacter(ObservableCollection<PersonSlim> persons)
 		{
 			return Task.Run(() =>
 			{
 				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
 
 				persons.Add(this.mapper.Map<PersonDto, PersonSlim>(tempDto));
+			});
+		}
+
+		public Task InsertRandomCharacter(ObservableCollection<PersonSlim> persons, int index)
+		{
+			return Task.Run(() =>
+			{
+				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
+
+				persons.Insert(index, this.mapper.Map<PersonDto, PersonSlim>(tempDto));
 			});
 		}
 

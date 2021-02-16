@@ -22,6 +22,8 @@ namespace PrismSample
 
 		public Task SearchFewCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
 
-		public Task AddRandamCharacter(ObservableCollection<PersonSlim> persons);
+		public Task AddRandomCharacter(ObservableCollection<PersonSlim> persons);
+
+		public Task InsertRandomCharacter(ObservableCollection<PersonSlim> persons, int index);
 	}
 }

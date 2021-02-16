@@ -19,6 +19,7 @@ namespace PrismSample
 
 		public ReadOnlyReactivePropertySlim<int> SearchResultCount { get; }
 
+		/// <summary>ListBoxで選択された項目のインデックスを取得・設定します。</summary>
 		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
 
 		/// <summary>PersonSlimを更新します。</summary>
@@ -61,15 +62,26 @@ namespace PrismSample
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
-				await agent.AddRandamCharacter(this.SearchResults);
+				await agent.AddRandomCharacter(this.SearchResults);
 			}
 		}
 
+		public async Task InsertRandomCharacter()
+		{
+			if (this.SelectedCharacterIndex.Value < 0)
+				return;
+
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				await agent.InsertRandomCharacter(this.SearchResults, this.SelectedCharacterIndex.Value);
+			}
+		}
+
+		/// <summary>SelectedCharacterIndexの変更通知処理を表します。</summary>
+		/// <param name="index">新たに選択された項目のインデックスを表すint。</param>
 		private void selectedCharacterChanged(int index)
 		{
-			if (SearchResults.Count == 0)
-				return;
-			if ((index < 0) && (this.SearchResults.Count - 1 < index))
+			if ((index < 0) || (this.SearchResults.Count - 1 < index))
 				return;	
 
 			var selectedCharacter = this.SearchResults[index];
