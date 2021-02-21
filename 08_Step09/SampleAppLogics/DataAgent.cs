@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Reactive.Bindings;
 
 namespace PrismSample
 {
@@ -115,6 +118,21 @@ namespace PrismSample
 			});
 		}
 
+		public Task<int> GetCharacterIndex(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition)
+		{
+			return Task.Run(() =>
+			{
+				var resultIndeies = persons.Select((p, i) => new { Person = p, Index = i })
+					.Where(x => Regex.IsMatch(x.Person.Name.Value, Regex.Escape(searchCondition.Name.Value)))
+					.Select(x => x.Index)
+					.ToList();
+				if (resultIndeies.Count == 0)
+					return -1;
+
+				return resultIndeies.First();
+			});
+		}
+
 		/// <summary>キャラクターをランダムに追加します。</summary>
 		/// <param name="persons">追加先のObservableCollection<PersonSlim>。</param>
 		/// <returns>非同期のTask。</returns>
@@ -135,6 +153,14 @@ namespace PrismSample
 				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
 
 				persons.Insert(index, this.mapper.Map<PersonDto, PersonSlim>(tempDto));
+			});
+		}
+
+		public Task RemoveCharacter(ObservableCollection<PersonSlim> persons, int index)
+		{
+			return Task.Run(() =>
+			{
+				persons.RemoveAt(index);
 			});
 		}
 

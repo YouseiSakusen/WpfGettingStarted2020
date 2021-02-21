@@ -19,10 +19,14 @@ namespace PrismSample
 
 		public Task SearchCharacterAsync();
 
-		public Task AddRandomCharacter();
+		public Task SelectCharacaterAsync();
 
-		public Task ClearAllCharacters();
+		public Task AddRandomCharacterAsync();
 
-		public Task InsertRandomCharacter();
+		public Task ClearAllCharactersAsync();
+
+		public Task InsertRandomCharacterAsync();
+
+		public Task RemoveSelectedCharacterAsync();
 	}
 }

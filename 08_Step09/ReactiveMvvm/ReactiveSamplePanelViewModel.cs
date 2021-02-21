@@ -28,19 +28,19 @@ namespace PrismSample.ReactiveMvvm
 		public ReactivePropertySlim<string> Zanpakuto { get; }
 
 		/// <summary>年齢を取得します。</summary>
-		public ReadOnlyReactivePropertySlim<int> Age { get; }
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<int> Age { get; }
 
 		/// <summary>現在日時を取得します。</summary>
-		public ReadOnlyReactivePropertySlim<string> NowDateTime { get; }
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> NowDateTime { get; }
 
 		/// <summary>パラメータで指定した分数を減算した時刻を取得します。</summary>
-		public ReadOnlyReactivePropertySlim<string> PastTime { get; }
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> PastTime { get; }
 
 		/// <summary>パラメータ切り替えToggleButtonのIsCheckedを取得・設定します。</summary>
 		public ReactivePropertySlim<bool> PastParameter { get; }
 
 		/// <summary>コマンドパラメータの値を取得します。</summary>
-		public ReadOnlyReactivePropertySlim<int> PastParameterValue { get; }
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<int> PastParameterValue { get; }
 
 		/// <summary>MouseMoveイベントを受け取ります。</summary>
 		public ReactivePropertySlim<MouseEventArgs> MousePoint { get; }
@@ -63,18 +63,17 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>検索ボタンClickコマンド。</summary>
 		public AsyncReactiveCommand SearchButtonClick { get; }
 
+		public AsyncReactiveCommand SelectListBoxClick { get; }
+
 		public AsyncReactiveCommand AddCharacterClick { get; }
 
 		public AsyncReactiveCommand InsertButtonClick { get; }
 
+		public AsyncReactiveCommand RemoveButtonClick { get; }
+
 		public AsyncReactiveCommand ClearButtonClick { get; }
 
 		// ####################### Adapterを使用した場合 #######################
-
-		private void searchResultChanged()
-		{
-
-		}
 
 		/// <summary>読込処理</summary>
 		private async Task onLoadClick()
@@ -83,7 +82,8 @@ namespace PrismSample.ReactiveMvvm
 		private CompositeDisposable disposables = new CompositeDisposable();
 		private IReactiveSamplePanelAdapter adapter = null;
 		private ReactivePropertySlim<bool> hasId;
-		public ReactivePropertySlim<bool> hasListItem { get; }
+
+		private ReadOnlyReactivePropertySlim<bool> hasSelectedIndex { get; }
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="samplePanelAdapter">ReactiveSamplePanel用アダプタを表すIReactiveSamplePanelAdapter。（DIコンテナからインジェクション。）</param>
@@ -93,8 +93,6 @@ namespace PrismSample.ReactiveMvvm
 			this.adapter.AddTo(this.disposables);
 
 			this.hasId = new ReactivePropertySlim<bool>(false)
-				.AddTo(this.disposables);
-			this.hasListItem = new ReactivePropertySlim<bool>(false)
 				.AddTo(this.disposables);
 
 			this.Id = this.adapter.Person.Id
@@ -124,7 +122,20 @@ namespace PrismSample.ReactiveMvvm
 			this.SearchResults = this.adapter.SearchResults
 				.ToReadOnlyReactiveCollection(x => new BleachListItemViewModel(x))
 				.AddTo(this.disposables);
-			//this.SearchResults.Subscribe(_ => this.searchResultChanged());
+			this.hasSelectedIndex = this.SelectedCharacterIndex
+				.Select(i => 0 <= i)
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposables);
+
+			this.SelectListBoxClick = new[]
+				{
+					this.SearchResults.ObserveProperty(x => x.Count).Select(c => 0 < c),
+					this.Name.Select(n => 0 < n.Length)
+				}
+				.CombineLatestValuesAreAllTrue()
+				.ToAsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.SelectCharacaterAsync())
+				.AddTo(this.disposables);
 
 			this.LoadClick = this.hasId
 				.ToAsyncReactiveCommand()
@@ -140,15 +151,21 @@ namespace PrismSample.ReactiveMvvm
 				.AddTo(this.disposables);
 
 			this.ClearButtonClick = new AsyncReactiveCommand()
-				.WithSubscribe(() => this.adapter.ClearAllCharacters())
+				.WithSubscribe(() => this.adapter.ClearAllCharactersAsync())
 				.AddTo(this.disposables);
 
 			this.AddCharacterClick = new AsyncReactiveCommand()
-				.WithSubscribe(() => this.adapter.AddRandomCharacter())
+				.WithSubscribe(() => this.adapter.AddRandomCharacterAsync())
 				.AddTo(this.disposables);
 
-			this.InsertButtonClick = this.hasListItem
+			this.InsertButtonClick = this.hasSelectedIndex
 				.ToAsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.InsertRandomCharacterAsync())
+				.AddTo(this.disposables);
+
+			this.RemoveButtonClick = this.hasSelectedIndex
+				.ToAsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.RemoveSelectedCharacterAsync())
 				.AddTo(this.disposables);
 		}
 

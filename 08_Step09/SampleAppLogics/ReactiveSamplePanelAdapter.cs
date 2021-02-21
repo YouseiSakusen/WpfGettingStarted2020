@@ -51,14 +51,24 @@ namespace PrismSample
 			}
 		}
 
+		public async Task SelectCharacaterAsync()
+		{
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				var index = await agent.GetCharacterIndex(this.SearchResults, this.Person);
+
+				this.SelectedCharacterIndex.Value = index;
+			}
+		}
+
 		/// <summary>検索結果をクリアします。</summary>
 		/// <returns>非同期のTask。</returns>
-		public Task ClearAllCharacters()
+		public Task ClearAllCharactersAsync()
 			=> Task.Run(() => this.SearchResults.Clear());
 
 		/// <summary>キャラクターをランダムに追加します。</summary>
 		/// <returns>非同期のTask。</returns>
-		public async Task AddRandomCharacter()
+		public async Task AddRandomCharacterAsync()
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
@@ -66,15 +76,25 @@ namespace PrismSample
 			}
 		}
 
-		public async Task InsertRandomCharacter()
+		public async Task InsertRandomCharacterAsync()
 		{
-			if (this.SelectedCharacterIndex.Value < 0)
-				return;
-
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
 				await agent.InsertRandomCharacter(this.SearchResults, this.SelectedCharacterIndex.Value);
 			}
+		}
+
+		public async Task RemoveSelectedCharacterAsync()
+		{
+			var selectedIndex = this.SelectedCharacterIndex.Value;
+
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				await agent.RemoveCharacter(this.SearchResults, selectedIndex);
+			}
+
+			if (0 <= selectedIndex - 1)
+				this.SelectedCharacterIndex.Value = selectedIndex - 1;
 		}
 
 		/// <summary>SelectedCharacterIndexの変更通知処理を表します。</summary>

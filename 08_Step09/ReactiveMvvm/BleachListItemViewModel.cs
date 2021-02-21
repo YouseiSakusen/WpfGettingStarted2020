@@ -12,19 +12,19 @@ namespace PrismSample.ReactiveMvvm
     public class BleachListItemViewModel : BindableBase, IDisposable
     {
         /// <summary>キャラクター名を取得します。</summary>
-        public ReadOnlyReactivePropertySlim<string> Name { get; }
+        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Name { get; }
 
         /// <summary>キャラクター姓の読み仮名を取得します。</summary>
-        public ReadOnlyReactivePropertySlim<string> LastNameKana { get; }
+        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> LastNameKana { get; }
 
         /// <summary>キャラクター名の読み仮名を取得します。</summary>
-        public ReadOnlyReactivePropertySlim<string> FirstNameKana { get; }
+        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> FirstNameKana { get; }
 
         /// <summary>誕生日を文字列として取得します。</summary>
-        public ReadOnlyReactivePropertySlim<string> BirthDay { get; }
+        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> BirthDay { get; }
 
         /// <summary>斬魄刀銘を取得します。</summary>
-        public ReadOnlyReactivePropertySlim<string> Zanpakuto { get; }
+        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Zanpakuto { get; }
 
         private PersonSlim bleachCharacter = null;
         private CompositeDisposable disposable = new CompositeDisposable();
