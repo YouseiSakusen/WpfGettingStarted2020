@@ -95,6 +95,23 @@ namespace PrismSample
 			//person.CompareProperties();
 		}
 
+		public async Task<List<PersonSlim>> GetAllCharactersAsync(PersonSlim searchCondition)
+		{
+			var dtoList = await this.personRepository.SearchCharactersAsync(searchCondition);
+			
+			return this.mapper.Map<List<PersonDto>, List<PersonSlim>>(dtoList);
+		}
+
+		public Task<List<PersonSlim>> GetFewCharactersAsync(PersonSlim searchCondition)
+		{
+			return Task.Run(() =>
+			{
+				var dtoList = this.personRepository.SearchFewCharacters(searchCondition);
+				
+				return this.mapper.Map<List<PersonDto>, List<PersonSlim>>(dtoList);
+			});
+		}
+
 		/// <summary>キャラクターを非同期で検索します。</summary>
 		/// <param name="searchCondition">検索条件を表すPersonSlim。</param>
 		/// <param name="persons">検索結果を格納するObservableCollection<PersonSlim>。</param>
@@ -118,7 +135,7 @@ namespace PrismSample
 			});
 		}
 
-		public Task<int> GetCharacterIndex(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition)
+		public Task<int> GetCharacterIndexAsync(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition)
 		{
 			return Task.Run(() =>
 			{
@@ -133,34 +150,13 @@ namespace PrismSample
 			});
 		}
 
-		/// <summary>キャラクターをランダムに追加します。</summary>
-		/// <param name="persons">追加先のObservableCollection<PersonSlim>。</param>
-		/// <returns>非同期のTask。</returns>
-		public Task AddRandomCharacter(ObservableCollection<PersonSlim> persons)
+		public Task<PersonSlim> GetRandomCharacterAsync()
 		{
 			return Task.Run(() =>
 			{
 				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
 
-				persons.Add(this.mapper.Map<PersonDto, PersonSlim>(tempDto));
-			});
-		}
-
-		public Task InsertRandomCharacter(ObservableCollection<PersonSlim> persons, int index)
-		{
-			return Task.Run(() =>
-			{
-				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
-
-				persons.Insert(index, this.mapper.Map<PersonDto, PersonSlim>(tempDto));
-			});
-		}
-
-		public Task RemoveCharacter(ObservableCollection<PersonSlim> persons, int index)
-		{
-			return Task.Run(() =>
-			{
-				persons.RemoveAt(index);
+				return this.mapper.Map<PersonDto, PersonSlim>(tempDto);
 			});
 		}
 

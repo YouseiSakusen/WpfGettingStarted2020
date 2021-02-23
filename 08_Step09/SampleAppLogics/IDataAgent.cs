@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -18,16 +19,16 @@ namespace PrismSample
 
 		public void TestMapper(PersonSlim person);
 
+		public Task<List<PersonSlim>> GetAllCharactersAsync(PersonSlim searchCondition);
+
+		public Task<List<PersonSlim>> GetFewCharactersAsync(PersonSlim searchCondition);
+
 		public Task SearchCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
 
 		public Task SearchFewCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
 
-		public Task<int> GetCharacterIndex(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition);
+		public Task<int> GetCharacterIndexAsync(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition);
 
-		public Task AddRandomCharacter(ObservableCollection<PersonSlim> persons);
-
-		public Task InsertRandomCharacter(ObservableCollection<PersonSlim> persons, int index);
-
-		public Task RemoveCharacter(ObservableCollection<PersonSlim> persons, int index);
+		public Task<PersonSlim> GetRandomCharacterAsync();
 	}
 }

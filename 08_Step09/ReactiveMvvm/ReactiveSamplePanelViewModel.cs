@@ -63,7 +63,7 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>検索ボタンClickコマンド。</summary>
 		public AsyncReactiveCommand SearchButtonClick { get; }
 
-		public AsyncReactiveCommand SelectListBoxClick { get; }
+		public AsyncReactiveCommand SelectListBoxButtonClick { get; }
 
 		public AsyncReactiveCommand AddCharacterClick { get; }
 
@@ -127,7 +127,7 @@ namespace PrismSample.ReactiveMvvm
 				.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
 
-			this.SelectListBoxClick = new[]
+			this.SelectListBoxButtonClick = new[]
 				{
 					this.SearchResults.ObserveProperty(x => x.Count).Select(c => 0 < c),
 					this.Name.Select(n => 0 < n.Length)

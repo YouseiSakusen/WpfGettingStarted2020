@@ -46,8 +46,8 @@ namespace PrismSample
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
-				//await agent.SearchFewCharacterAsync(this.Person, this.SearchResults);
-				await agent.SearchCharacterAsync(this.Person, this.SearchResults);
+				await agent.SearchFewCharacterAsync(this.Person, this.SearchResults);
+				//await agent.SearchCharacterAsync(this.Person, this.SearchResults);
 			}
 		}
 
@@ -55,9 +55,7 @@ namespace PrismSample
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
-				var index = await agent.GetCharacterIndex(this.SearchResults, this.Person);
-
-				this.SelectedCharacterIndex.Value = index;
+				this.SelectedCharacterIndex.Value = await agent.GetCharacterIndexAsync(this.SearchResults, this.Person);
 			}
 		}
 
@@ -72,7 +70,7 @@ namespace PrismSample
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
-				await agent.AddRandomCharacter(this.SearchResults);
+				this.SearchResults.Add(await agent.GetRandomCharacterAsync());
 			}
 		}
 
@@ -80,21 +78,21 @@ namespace PrismSample
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
-				await agent.InsertRandomCharacter(this.SearchResults, this.SelectedCharacterIndex.Value);
+				this.SearchResults.Insert(this.SelectedCharacterIndex.Value, await agent.GetRandomCharacterAsync());
 			}
 		}
 
-		public async Task RemoveSelectedCharacterAsync()
+		public Task RemoveSelectedCharacterAsync()
 		{
 			var selectedIndex = this.SelectedCharacterIndex.Value;
 
-			using (var agent = this.container.Resolve<IDataAgent>())
+			return Task.Run(() =>
 			{
-				await agent.RemoveCharacter(this.SearchResults, selectedIndex);
-			}
+				this.SearchResults.RemoveAt(selectedIndex);
 
-			if (0 <= selectedIndex - 1)
-				this.SelectedCharacterIndex.Value = selectedIndex - 1;
+				if (0 <= selectedIndex - 1)
+					this.SelectedCharacterIndex.Value = selectedIndex - 1;
+			});
 		}
 
 		/// <summary>SelectedCharacterIndexの変更通知処理を表します。</summary>
