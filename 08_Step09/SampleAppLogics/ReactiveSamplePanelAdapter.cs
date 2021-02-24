@@ -17,8 +17,6 @@ namespace PrismSample
 		/// <summary>検索結果に表示するキャラクターを取得します。</summary>
 		public ObservableCollection<PersonSlim> SearchResults { get; }
 
-		public ReadOnlyReactivePropertySlim<int> SearchResultCount { get; }
-
 		/// <summary>ListBoxで選択された項目のインデックスを取得・設定します。</summary>
 		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
 
@@ -42,12 +40,14 @@ namespace PrismSample
 			}
 		}
 
+		/// <summary>検索条件に一致するキャラクターを検索します。</summary>
+		/// <returns>非同期処理のTask。</returns>
 		public async Task SearchCharacterAsync()
 		{
 			using (var agent = this.container.Resolve<IDataAgent>())
 			{
-				await agent.SearchFewCharacterAsync(this.Person, this.SearchResults);
-				//await agent.SearchCharacterAsync(this.Person, this.SearchResults);
+				this.SearchResults.AddRange(await agent.GetAllCharactersAsync(this.Person));
+				//this.SearchResults.AddRange(await agent.GetFewCharactersAsync(this.Person));
 			}
 		}
 

@@ -23,10 +23,6 @@ namespace PrismSample
 
 		public Task<List<PersonSlim>> GetFewCharactersAsync(PersonSlim searchCondition);
 
-		public Task SearchCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
-
-		public Task SearchFewCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons);
-
 		public Task<int> GetCharacterIndexAsync(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition);
 
 		public Task<PersonSlim> GetRandomCharacterAsync();

@@ -112,29 +112,6 @@ namespace PrismSample
 			});
 		}
 
-		/// <summary>キャラクターを非同期で検索します。</summary>
-		/// <param name="searchCondition">検索条件を表すPersonSlim。</param>
-		/// <param name="persons">検索結果を格納するObservableCollection<PersonSlim>。</param>
-		/// <returns>非同期のTask。</returns>
-		public async Task SearchCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons)
-		{
-			var dtoList = await this.personRepository.SearchCharactersAsync(searchCondition);
-			List<PersonSlim> personRetList = this.mapper.Map<List<PersonDto>, List<PersonSlim>>(dtoList);
-
-			persons.AddRange(personRetList);
-		}
-
-		public Task SearchFewCharacterAsync(PersonSlim searchCondition, ObservableCollection<PersonSlim> persons)
-		{
-			return Task.Run(() =>
-			{
-				var dtoList = this.personRepository.SearchFewCharacters(searchCondition);
-				List<PersonSlim> personRetList = this.mapper.Map<List<PersonDto>, List<PersonSlim>>(dtoList);
-
-				persons.AddRange(personRetList);
-			});
-		}
-
 		public Task<int> GetCharacterIndexAsync(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition)
 		{
 			return Task.Run(() =>
