@@ -11,15 +11,15 @@ namespace PrismSample
 
 		public ObservableCollection<PersonSlim> SearchResults { get; }
 
-		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
-
 		public Task UpdatePersonAsync();
 
 		public Task SavePersonAsync();
 
 		public Task SearchCharacterAsync();
 
-		public Task SelectCharacaterAsync();
+		public void UpdatePersonFromSearchResults(int index);
+
+		public Task<int> GetCharacterIndex();
 
 		public Task AddRandomCharacterAsync();
 

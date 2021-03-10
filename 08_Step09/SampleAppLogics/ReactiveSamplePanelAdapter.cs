@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive.Disposables;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using Prism.Ioc;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -16,9 +19,6 @@ namespace PrismSample
 
 		/// <summary>検索結果に表示するキャラクターを取得します。</summary>
 		public ObservableCollection<PersonSlim> SearchResults { get; }
-
-		/// <summary>ListBoxで選択された項目のインデックスを取得・設定します。</summary>
-		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
 
 		/// <summary>PersonSlimを更新します。</summary>
 		/// <returns>処理を実行するTask。</returns>
@@ -51,12 +51,32 @@ namespace PrismSample
 			}
 		}
 
-		public async Task SelectCharacaterAsync()
+		/// <summary>SelectedCharacterIndexの変更通知処理を表します。</summary>
+		/// <param name="index">新たに選択された項目のインデックスを表すint。</param>
+		public void UpdatePersonFromSearchResults(int index)
 		{
-			using (var agent = this.container.Resolve<IDataAgent>())
+			if ((index < 0) || (this.SearchResults.Count <= index))
+				return;
+
+			this.Person.Id.Value = this.SearchResults[index].Id.Value;
+			this.Person.Name.Value = this.SearchResults[index].Name.Value;
+			this.Person.BirthDay.Value = this.SearchResults[index].BirthDay.Value;
+			this.Person.Zanpakuto.Value = this.SearchResults[index].Zanpakuto.Value;
+		}
+
+		public Task<int> GetCharacterIndex()
+		{
+			return Task.Run(() =>
 			{
-				this.SelectedCharacterIndex.Value = await agent.GetCharacterIndexAsync(this.SearchResults, this.Person);
-			}
+				var resultIndeies = this.SearchResults.Select((p, i) => new { Person = p, Index = i })
+					.Where(x => Regex.IsMatch(x.Person.Name.Value, Regex.Escape(this.Person.Name.Value)))
+					.Select(x => x.Index)
+					.ToList();
+				if (resultIndeies.Count == 0)
+					return -1;
+
+				return resultIndeies.First();
+			});
 		}
 
 		/// <summary>検索結果をクリアします。</summary>
@@ -76,56 +96,41 @@ namespace PrismSample
 
 		public async Task InsertRandomCharacterAsync()
 		{
-			using (var agent = this.container.Resolve<IDataAgent>())
-			{
-				this.SearchResults.Insert(this.SelectedCharacterIndex.Value, await agent.GetRandomCharacterAsync());
-			}
+			//using (var agent = this.container.Resolve<IDataAgent>())
+			//{
+			//	this.SearchResults.Insert(this.SelectedCharacterIndex.Value, await agent.GetRandomCharacterAsync());
+			//}
 		}
 
 		public Task RemoveSelectedCharacterAsync()
 		{
-			var selectedIndex = this.SelectedCharacterIndex.Value;
+			//var selectedIndex = this.SelectedCharacterIndex.Value;
 
-			return Task.Run(() =>
-			{
-				this.SearchResults.RemoveAt(selectedIndex);
+			//return Task.Run(() =>
+			//{
+			//	this.SearchResults.RemoveAt(selectedIndex);
 
-				if (0 <= selectedIndex - 1)
-					this.SelectedCharacterIndex.Value = selectedIndex - 1;
-			});
-		}
-
-		/// <summary>SelectedCharacterIndexの変更通知処理を表します。</summary>
-		/// <param name="index">新たに選択された項目のインデックスを表すint。</param>
-		private void selectedCharacterChanged(int index)
-		{
-			if ((index < 0) || (this.SearchResults.Count - 1 < index))
-				return;	
-
-			var selectedCharacter = this.SearchResults[index];
-			this.Person.Id.Value = selectedCharacter.Id.Value;
-			this.Person.Name.Value = selectedCharacter.Name.Value;
-			this.Person.BirthDay.Value = selectedCharacter.BirthDay.Value;
-			this.Person.Zanpakuto.Value = selectedCharacter.Zanpakuto.Value;
+			//	if (0 <= selectedIndex - 1)
+			//		this.SelectedCharacterIndex.Value = selectedIndex - 1;
+			//});
+			return Task.CompletedTask;
 		}
 
 		private IContainerProvider container = null;
 		private CompositeDisposable disposables = new CompositeDisposable();
+		private IMapper mapper = null;
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="containerProvider">インスタンス取得用のDIコンテナを表すIContainerProvider。（DIコンテナからインジェクションされる）</param>
 		/// <param name="personSlim">ViewとバインドするPersonSlim。（DIコンテナからインジェクションされる）</param>
-		public ReactiveSamplePanelAdapter(IContainerProvider containerProvider, PersonSlim personSlim)
+		public ReactiveSamplePanelAdapter(IContainerProvider containerProvider, PersonSlim personSlim, IMapper autoMapper)
 		{
 			this.container = containerProvider;
 			this.Person = personSlim
 				.AddTo(this.disposables);
+			this.mapper = autoMapper;
 
 			this.SearchResults = new ObservableCollection<PersonSlim>();
-
-			this.SelectedCharacterIndex = new ReactivePropertySlim<int>(-1)
-				.AddTo(this.disposables);
-			this.SelectedCharacterIndex.Subscribe(v => this.selectedCharacterChanged(v));
 		}
 
 		private bool disposedValue;

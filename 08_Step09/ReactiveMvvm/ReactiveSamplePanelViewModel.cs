@@ -51,6 +51,7 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>ListBoxに表示するBLEACHキャラクターを取得します。</summary>
 		public ReadOnlyReactiveCollection<BleachListItemViewModel> SearchResults { get; }
 
+		/// <summary>ListBoxで選択された項目のインデックスを取得・設定します</summary>
 		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
 
 		public ReactivePropertySlim<BleachListItemViewModel> SelectedCharacter { get; }
@@ -63,6 +64,7 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>検索ボタンClickコマンド。</summary>
 		public AsyncReactiveCommand SearchButtonClick { get; }
 
+		/// <summary>ListBoxを選択ボタンのClickコマンドを表します。</summary>
 		public AsyncReactiveCommand SelectListBoxButtonClick { get; }
 
 		public AsyncReactiveCommand AddCharacterClick { get; }
@@ -111,11 +113,12 @@ namespace PrismSample.ReactiveMvvm
 				.ToReadOnlyReactivePropertySlim()
 				.AddTo(this.disposables);
 
-			this.Id.Subscribe(v => this.hasId.Value = v.HasValue);
+			this.Id.Subscribe((v) => this.hasId.Value = v.HasValue);
 
-			this.SelectedCharacterIndex = this.adapter.SelectedCharacterIndex
-				.ToReactivePropertySlimAsSynchronized(x => x.Value)
+			this.SelectedCharacterIndex = new ReactivePropertySlim<int>(-1)
 				.AddTo(this.disposables);
+			this.SelectedCharacterIndex.Where(i => 0 <= i)
+				.Subscribe((i) => this.adapter.UpdatePersonFromSearchResults(i));
 			this.SelectedCharacter = new ReactivePropertySlim<BleachListItemViewModel>(null)
 				.AddTo(this.disposables);
 
@@ -134,7 +137,7 @@ namespace PrismSample.ReactiveMvvm
 				}
 				.CombineLatestValuesAreAllTrue()
 				.ToAsyncReactiveCommand()
-				.WithSubscribe(() => this.adapter.SelectCharacaterAsync())
+				.WithSubscribe(async () => this.SelectedCharacterIndex.Value = await this.adapter.GetCharacterIndex())
 				.AddTo(this.disposables);
 
 			this.LoadClick = this.hasId
