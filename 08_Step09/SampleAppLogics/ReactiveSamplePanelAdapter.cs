@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -86,51 +87,72 @@ namespace PrismSample
 
 		/// <summary>キャラクターをランダムに追加します。</summary>
 		/// <returns>非同期のTask。</returns>
-		public async Task AddRandomCharacterAsync()
+		public Task AddRandomCharacterAsync()
+			=> Task.Run(() => this.SearchResults.Add(this.getRandomCharacter()));
+
+		private PersonSlim getRandomCharacter()
+			=> this.allCharacters[this.randomIndex.Next(3, this.allCharacters.Count - 1)];
+
+		/// <summary>ランダムなキャラクターをリストに挿入します。</summary>
+		/// <param name="index">挿入位置のインデックスを表すint。</param>
+		/// <returns>非同期処理のTask。</returns>
+		public Task InsertRandomCharacterAsync(int index)
 		{
-			using (var agent = this.container.Resolve<IDataAgent>())
+			return Task.Run(() =>
 			{
-				this.SearchResults.Add(await agent.GetRandomCharacterAsync());
-			}
+				var newCharacter = this.allCharacters[this.randomIndex.Next(3, this.allCharacters.Count - 1)];
+
+				this.SearchResults.Insert(index, newCharacter);
+			});
 		}
 
-		public async Task InsertRandomCharacterAsync()
+		/// <summary>キャラクターをリストから削除します。</summary>
+		/// <param name="index">削除するキャラクターのインデックスを表すint。</param>
+		/// <returns>非同期処理のTask。</returns>
+		public Task RemoveCharacterAsync(int index)
+			=> Task.Run(() => this.SearchResults.RemoveAt(index));
+
+		public Task MoveCharacterAsync(int index, bool isUpperDirection)
 		{
-			//using (var agent = this.container.Resolve<IDataAgent>())
-			//{
-			//	this.SearchResults.Insert(this.SelectedCharacterIndex.Value, await agent.GetRandomCharacterAsync());
-			//}
-		}
+			var newIndex = index;
 
-		public Task RemoveSelectedCharacterAsync()
-		{
-			//var selectedIndex = this.SelectedCharacterIndex.Value;
+			if (isUpperDirection)
+				newIndex--;
+			else
+				newIndex++;
 
-			//return Task.Run(() =>
-			//{
-			//	this.SearchResults.RemoveAt(selectedIndex);
+			return Task.Run(() =>
+			{
+				if ((newIndex < 0) || (this.SearchResults.Count <= newIndex))
+					return;
 
-			//	if (0 <= selectedIndex - 1)
-			//		this.SelectedCharacterIndex.Value = selectedIndex - 1;
-			//});
-			return Task.CompletedTask;
+				this.SearchResults.Move(index, newIndex);
+			});
 		}
 
 		private IContainerProvider container = null;
 		private CompositeDisposable disposables = new CompositeDisposable();
-		private IMapper mapper = null;
+		private List<PersonSlim> allCharacters = null;
+		private Random randomIndex = new Random();
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="containerProvider">インスタンス取得用のDIコンテナを表すIContainerProvider。（DIコンテナからインジェクションされる）</param>
 		/// <param name="personSlim">ViewとバインドするPersonSlim。（DIコンテナからインジェクションされる）</param>
-		public ReactiveSamplePanelAdapter(IContainerProvider containerProvider, PersonSlim personSlim, IMapper autoMapper)
+		public ReactiveSamplePanelAdapter(IContainerProvider containerProvider, PersonSlim personSlim)
 		{
 			this.container = containerProvider;
 			this.Person = personSlim
 				.AddTo(this.disposables);
-			this.mapper = autoMapper;
 
 			this.SearchResults = new ObservableCollection<PersonSlim>();
+
+			using (var agent = this.container.Resolve<IDataAgent>())
+			{
+				Task.Run(async () =>
+				{
+					this.allCharacters = await agent.GetAllCharactersAsync(null);
+				});
+			}
 		}
 
 		private bool disposedValue;

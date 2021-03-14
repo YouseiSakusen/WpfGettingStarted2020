@@ -51,9 +51,10 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>ListBoxに表示するBLEACHキャラクターを取得します。</summary>
 		public ReadOnlyReactiveCollection<BleachListItemViewModel> SearchResults { get; }
 
-		/// <summary>ListBoxで選択された項目のインデックスを取得・設定します</summary>
+		/// <summary>ListBoxで選択された項目のインデックスを取得・設定します。</summary>
 		public ReactivePropertySlim<int> SelectedCharacterIndex { get; }
 
+		/// <summary>ListBoxで選択された項目を取得・設定します。</summary>
 		public ReactivePropertySlim<BleachListItemViewModel> SelectedCharacter { get; }
 
 		/// <summary>読込ボタンClickコマンド</summary>
@@ -74,6 +75,19 @@ namespace PrismSample.ReactiveMvvm
 		public AsyncReactiveCommand RemoveButtonClick { get; }
 
 		public AsyncReactiveCommand ClearButtonClick { get; }
+
+		public AsyncReactiveCommand MoveUpCharacter { get; }
+
+		public AsyncReactiveCommand MoveDownCharacter { get; }
+
+		private async Task removeCharacter()
+		{
+			var index = this.SelectedCharacterIndex.Value;
+			await this.adapter.RemoveCharacterAsync(this.SelectedCharacterIndex.Value);
+
+			if (this.SearchResults.Count != 0)
+				this.SelectedCharacterIndex.Value = index;
+		}
 
 		// ####################### Adapterを使用した場合 #######################
 
@@ -139,7 +153,7 @@ namespace PrismSample.ReactiveMvvm
 				.ToAsyncReactiveCommand()
 				.WithSubscribe(async () => this.SelectedCharacterIndex.Value = await this.adapter.GetCharacterIndex())
 				.AddTo(this.disposables);
-
+			
 			this.LoadClick = this.hasId
 				.ToAsyncReactiveCommand()
 				.WithSubscribe(() => this.onLoadClick())
@@ -163,12 +177,21 @@ namespace PrismSample.ReactiveMvvm
 
 			this.InsertButtonClick = this.hasSelectedIndex
 				.ToAsyncReactiveCommand()
-				.WithSubscribe(() => this.adapter.InsertRandomCharacterAsync())
+				.WithSubscribe(() => this.adapter.InsertRandomCharacterAsync(this.SelectedCharacterIndex.Value))
 				.AddTo(this.disposables);
 
 			this.RemoveButtonClick = this.hasSelectedIndex
 				.ToAsyncReactiveCommand()
-				.WithSubscribe(() => this.adapter.RemoveSelectedCharacterAsync())
+				.WithSubscribe(() => this.removeCharacter())
+				.AddTo(this.disposables);
+
+			this.MoveUpCharacter = this.SelectedCharacterIndex.Select(v => 0 < v)
+				.ToAsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.MoveCharacterAsync(this.SelectedCharacterIndex.Value, true))
+				.AddTo(this.disposables);
+			this.MoveDownCharacter = this.SelectedCharacterIndex.Select(v => v < this.SearchResults.Count - 1)
+				.ToAsyncReactiveCommand()
+				.WithSubscribe(() => this.adapter.MoveCharacterAsync(this.SelectedCharacterIndex.Value, false))
 				.AddTo(this.disposables);
 		}
 

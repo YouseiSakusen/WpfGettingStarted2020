@@ -8,86 +8,88 @@ using System.Reactive.Linq;
 
 namespace PrismSample.ReactiveMvvm
 {
-    /// <summary>BLEACHキャラクターListBoxItem用ViewModelを表します。</summary>
-    public class BleachListItemViewModel : BindableBase, IDisposable
-    {
-        /// <summary>キャラクター名を取得します。</summary>
-        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Name { get; }
+	/// <summary>BLEACHキャラクターListBoxItem用ViewModelを表します。</summary>
+	public class BleachListItemViewModel : BindableBase, IDisposable
+	{
+		/// <summary>キャラクター名を取得します。</summary>
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Name { get; }
 
-        /// <summary>キャラクター姓の読み仮名を取得します。</summary>
-        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> LastNameKana { get; }
+		/// <summary>キャラクター姓の読み仮名を取得します。</summary>
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> LastNameKana { get; }
 
-        /// <summary>キャラクター名の読み仮名を取得します。</summary>
-        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> FirstNameKana { get; }
+		/// <summary>キャラクター名の読み仮名を取得します。</summary>
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> FirstNameKana { get; }
 
-        /// <summary>誕生日を文字列として取得します。</summary>
-        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> BirthDay { get; }
+		/// <summary>誕生日を文字列として取得します。</summary>
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> BirthDay { get; }
 
-        /// <summary>斬魄刀銘を取得します。</summary>
-        public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Zanpakuto { get; }
+		/// <summary>斬魄刀銘を取得します。</summary>
+		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Zanpakuto { get; }
 
-        private PersonSlim bleachCharacter = null;
-        private CompositeDisposable disposable = new CompositeDisposable();
+		/// <summary>VMに設定したエンティティ系モデルを取得します。</summary>
+		public PersonSlim SourcePerson { get; } = null;
 
-        /// <summary>コンストラクタ。</summary>
-        /// <param name="bleachChara">VMが仲介するBLEACHキャラクターのインスタンス。</param>
-        public BleachListItemViewModel(PersonSlim bleachChara)
-        {
-            this.bleachCharacter = bleachChara;
-            this.bleachCharacter.AddTo(this.disposable);
+		private CompositeDisposable disposable = new CompositeDisposable();
 
-            this.Name = this.bleachCharacter.Name
-                .ToReadOnlyReactivePropertySlim()
-                .AddTo(this.disposable);
-            this.LastNameKana = this.bleachCharacter.LastNameKana
-                .ToReadOnlyReactivePropertySlim()
-                .AddTo(this.disposable);
-            this.FirstNameKana = this.bleachCharacter.FirstNameKana
-                .ToReadOnlyReactivePropertySlim()
-                .AddTo(this.disposable);
-            this.BirthDay = this.bleachCharacter.BirthDay
-                .Where(v => v.HasValue)
-                .Select(v => v.Value.ToString("yyyy/MM/dd"))
-                .ToReadOnlyReactivePropertySlim()
-                .AddTo(this.disposable);
-            this.Zanpakuto = this.bleachCharacter.Zanpakuto
-                .ToReadOnlyReactivePropertySlim()
-                .AddTo(this.disposable);
-        }
+		/// <summary>コンストラクタ。</summary>
+		/// <param name="bleachChara">VMが仲介するBLEACHキャラクターのインスタンス。</param>
+		public BleachListItemViewModel(PersonSlim bleachChara)
+		{
+			this.SourcePerson = bleachChara;
+			this.SourcePerson.AddTo(this.disposable);
 
-        #region IDisposable
+			this.Name = this.SourcePerson.Name
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+			this.LastNameKana = this.SourcePerson.LastNameKana
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+			this.FirstNameKana = this.SourcePerson.FirstNameKana
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+			this.BirthDay = this.SourcePerson.BirthDay
+				.Where(v => v.HasValue)
+				.Select(v => v.Value.ToString("yyyy/MM/dd"))
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+			this.Zanpakuto = this.SourcePerson.Zanpakuto
+				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+		}
 
-        private bool disposedValue;
+		#region IDisposable
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    this.disposable.Dispose();
-                }
+		private bool disposedValue;
 
-                // TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、ファイナライザーをオーバーライドします
-                // TODO: 大きなフィールドを null に設定します
-                disposedValue = true;
-            }
-        }
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					this.disposable.Dispose();
+				}
 
-        // // TODO: 'Dispose(bool disposing)' にアンマネージド リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします
-        // ~BleachListItemViewModel()
-        // {
-        //     // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
-        //     Dispose(disposing: false);
-        // }
+				// TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、ファイナライザーをオーバーライドします
+				// TODO: 大きなフィールドを null に設定します
+				disposedValue = true;
+			}
+		}
 
-        public void Dispose()
-        {
-            // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+		// // TODO: 'Dispose(bool disposing)' にアンマネージド リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします
+		// ~BleachListItemViewModel()
+		// {
+		//     // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
+		//     Dispose(disposing: false);
+		// }
 
-        #endregion
-    }
+		public void Dispose()
+		{
+			// このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
+		}
+
+		#endregion
+	}
 }

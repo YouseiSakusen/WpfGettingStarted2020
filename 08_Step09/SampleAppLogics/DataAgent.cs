@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Reactive.Bindings;
@@ -28,12 +25,6 @@ namespace PrismSample
 				return;
 
 			this.mapper.Map<PersonDto, PersonSlim>(await this.personRepository.GetPersonDtoAsync(), person);
-
-			//var temp = await this.personRepository.GetPersonSlimAsync();
-
-			//person.Id.Value = temp.Id.Value;
-			//person.Name.Value = temp.Name.Value;
-			//person.BirthDay.Value = temp.BirthDay.Value;
 		}
 
 		/// <summary>PersonSlimをPersonDtoに移し替えてXMLファイルに保存します。</summary>
@@ -112,35 +103,8 @@ namespace PrismSample
 			});
 		}
 
-		public Task<int> GetCharacterIndexAsync(ObservableCollection<PersonSlim> persons, PersonSlim searchCondition)
-		{
-			return Task.Run(() =>
-			{
-				var resultIndeies = persons.Select((p, i) => new { Person = p, Index = i })
-					.Where(x => Regex.IsMatch(x.Person.Name.Value, Regex.Escape(searchCondition.Name.Value)))
-					.Select(x => x.Index)
-					.ToList();
-				if (resultIndeies.Count == 0)
-					return -1;
-
-				return resultIndeies.First();
-			});
-		}
-
-		public Task<PersonSlim> GetRandomCharacterAsync()
-		{
-			return Task.Run(() =>
-			{
-				var tempDto = this.bleachAllCharacters[this.randomIndex.Next(3, this.bleachAllCharacters.Count - 1)];
-
-				return this.mapper.Map<PersonDto, PersonSlim>(tempDto);
-			});
-		}
-
 		private IPersonRepository personRepository = null;
 		private IMapper mapper = null;
-		private List<PersonDto> bleachAllCharacters = null;
-		private Random randomIndex = new Random();
 
 		/// <summary>コンストラクタ。</summary>
 		/// <param name="personRepo">DIコンテナからインジェクションされるIPersonRepository。</param>
@@ -148,8 +112,6 @@ namespace PrismSample
 		{
 			this.personRepository = personRepo;
 			this.mapper = injectionMapper;
-
-			this.bleachAllCharacters = this.personRepository.SearchCharacters(null);
 		}
 
 		#region IDisposable

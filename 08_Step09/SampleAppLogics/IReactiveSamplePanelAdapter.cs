@@ -25,8 +25,10 @@ namespace PrismSample
 
 		public Task ClearAllCharactersAsync();
 
-		public Task InsertRandomCharacterAsync();
+		public Task InsertRandomCharacterAsync(int index);
 
-		public Task RemoveSelectedCharacterAsync();
+		public Task RemoveCharacterAsync(int index);
+
+		public Task MoveCharacterAsync(int index, bool isUpperDirection);
 	}
 }

@@ -234,7 +234,8 @@
 						<RowDefinition/>
 						<RowDefinition Height="0.25*"/>
 					</Grid.RowDefinitions>
-					<Button Grid.Row="0">
+					<Button Grid.Row="0"
+							Command="{Binding MoveUpCharacter}">
 						<icon:PackIcon Kind="{x:Static icon:PackIconMaterialKind.ArrowUpBoldCircle}" />
 					</Button>
 					<StackPanel Grid.Row="1"
@@ -250,7 +251,8 @@
 								Command="{Binding RemoveButtonClick}"
 								Style="{StaticResource MaterialDesignRaisedLightButton}"/>
 					</StackPanel>
-					<Button Grid.Row="2">
+					<Button Grid.Row="2"
+							Command="{Binding MoveDownCharacter}">
 						<icon:PackIcon Kind="{x:Static icon:PackIconMaterialKind.ArrowDownBoldCircle}" />
 					</Button>
 				</Grid>
