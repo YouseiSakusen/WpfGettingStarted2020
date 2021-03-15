@@ -26,6 +26,8 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>斬魄刀銘を取得します。</summary>
 		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Zanpakuto { get; }
 
+		public ReactiveProperty<bool> IsSelected { get; }
+
 		/// <summary>VMに設定したエンティティ系モデルを取得します。</summary>
 		public PersonSlim SourcePerson { get; } = null;
 
@@ -54,6 +56,9 @@ namespace PrismSample.ReactiveMvvm
 				.AddTo(this.disposable);
 			this.Zanpakuto = this.SourcePerson.Zanpakuto
 				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposable);
+
+			this.IsSelected = new ReactiveProperty<bool>(false)
 				.AddTo(this.disposable);
 		}
 

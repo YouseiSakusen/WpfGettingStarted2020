@@ -57,6 +57,12 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>ListBoxで選択された項目を取得・設定します。</summary>
 		public ReactivePropertySlim<BleachListItemViewModel> SelectedCharacter { get; }
 
+		public ReactiveCollection<int> SelectedIndeies { get; }
+
+		public ReactiveCollection<BleachListItemViewModel> SelectedItems { get; }
+
+		public ReactiveProperty<string> SelectedValue { get; }
+
 		/// <summary>読込ボタンClickコマンド</summary>
 		public AsyncReactiveCommand LoadClick { get; }
 
@@ -142,6 +148,9 @@ namespace PrismSample.ReactiveMvvm
 			this.hasSelectedIndex = this.SelectedCharacterIndex
 				.Select(i => 0 <= i)
 				.ToReadOnlyReactivePropertySlim()
+				.AddTo(this.disposables);
+
+			this.SelectedValue = new ReactiveProperty<string>(string.Empty)
 				.AddTo(this.disposables);
 
 			this.SelectListBoxButtonClick = new[]

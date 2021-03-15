@@ -179,10 +179,19 @@
 						 VirtualizingPanel.IsVirtualizing="True"
 						 VirtualizingPanel.VirtualizationMode="Recycling"
 						 VirtualizingPanel.ScrollUnit="Pixel"
-						 ItemsSource="{Binding SearchResults}"
+						 ItemsSource="{Binding SearchResults, Mode=OneWay}"
 						 HorizontalContentAlignment="Stretch"
-						 SelectedIndex="{Binding SelectedCharacterIndex.Value}"
-						 SelectedItem="{Binding SelectedCharacter.Value}">
+						 SelectedIndex="{Binding SelectedCharacterIndex.Value, Mode=TwoWay}"
+						 SelectedItem="{Binding SelectedCharacter.Value, Mode=TwoWay}"
+						 SelectedValuePath="Name"
+						 SelectionMode="Extended"
+						 SelectedValue="{Binding SelectedValue.Value, Mode=TwoWay}">
+					<ListBox.ItemContainerStyle>
+						<Style TargetType="{x:Type ListBoxItem}">
+							<Setter Property="IsSelected"
+									Value="{Binding IsSelected.Value, Mode=TwoWay}" />
+						</Style>
+					</ListBox.ItemContainerStyle>
 					<ListBox.ItemTemplate>
 						<DataTemplate DataType="{x:Type local:BleachListItemViewModel}">
 							<Grid>
