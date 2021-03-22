@@ -9,8 +9,9 @@
 			 xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
 			 xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
 			 xmlns:local="clr-namespace:PrismSample.ReactiveMvvm"
+			 xmlns:vms="clr-namespace:PrismSample.ReactiveMvvm.ViewModels;assembly=SharedViewModels"
 			 mc:Ignorable="d" 
-			 d:DesignHeight="480" d:DesignWidth="640"
+			 d:DesignHeight="700" d:DesignWidth="640"
 			 d:DataContext="{d:DesignInstance local:ReactiveSamplePanelViewModel}"
 			 prism:ViewModelLocator.AutoWireViewModel="True">
 	<UserControl.Resources>
@@ -186,14 +187,8 @@
 						 SelectedValuePath="Name"
 						 SelectionMode="Extended"
 						 SelectedValue="{Binding SelectedValue.Value, Mode=TwoWay}">
-					<ListBox.ItemContainerStyle>
-						<Style TargetType="{x:Type ListBoxItem}">
-							<Setter Property="IsSelected"
-									Value="{Binding IsSelected.Value, Mode=TwoWay}" />
-						</Style>
-					</ListBox.ItemContainerStyle>
 					<ListBox.ItemTemplate>
-						<DataTemplate DataType="{x:Type local:BleachListItemViewModel}">
+						<DataTemplate DataType="{x:Type vms:BleachListItemViewModel}">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="0.7*"/>

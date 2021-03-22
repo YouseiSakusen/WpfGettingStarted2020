@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA1416: プラットフォームの互換性を検証
+dotnet_diagnostic.CA1416.severity = silent

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
-namespace PrismSample.ReactiveMvvm
+namespace PrismSample.ReactiveMvvm.ViewModels
 {
 	/// <summary>BLEACHキャラクターListBoxItem用ViewModelを表します。</summary>
 	public class BleachListItemViewModel : BindableBase, IDisposable
@@ -26,6 +26,7 @@ namespace PrismSample.ReactiveMvvm
 		/// <summary>斬魄刀銘を取得します。</summary>
 		public Reactive.Bindings.ReadOnlyReactivePropertySlim<string> Zanpakuto { get; }
 
+		/// <summary>選択されている・されていないを取得・設定します。</summary>
 		public ReactiveProperty<bool> IsSelected { get; }
 
 		/// <summary>VMに設定したエンティティ系モデルを取得します。</summary>

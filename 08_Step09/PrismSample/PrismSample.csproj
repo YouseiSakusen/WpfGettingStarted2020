@@ -6,6 +6,9 @@
     <AssemblyName>PrismSample</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.4" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.0" />
@@ -15,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrismMvvm\PrismMvvm.csproj" />
+    <ProjectReference Include="..\ReactiveMvvm2\ReactiveMvvm2.csproj" />
     <ProjectReference Include="..\ReactiveMvvm\ReactiveMvvm.csproj" />
     <ProjectReference Include="..\SampleAppLogics\SampleAppLogics.csproj" />
     <ProjectReference Include="..\SampleDataAccess\SampleDataAccess.csproj" />

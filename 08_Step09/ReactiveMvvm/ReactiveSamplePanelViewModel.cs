@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Navigation;
+using PrismSample.ReactiveMvvm.ViewModels;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
@@ -56,8 +55,6 @@ namespace PrismSample.ReactiveMvvm
 
 		/// <summary>ListBoxで選択された項目を取得・設定します。</summary>
 		public ReactivePropertySlim<BleachListItemViewModel> SelectedCharacter { get; }
-
-		public ReactiveCollection<int> SelectedIndeies { get; }
 
 		public ReactiveCollection<BleachListItemViewModel> SelectedItems { get; }
 
