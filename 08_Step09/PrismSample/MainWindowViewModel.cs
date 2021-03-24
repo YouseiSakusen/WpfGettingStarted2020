@@ -25,10 +25,10 @@ namespace PrismSample
 			this.regionManager = regMan;
 
 			//this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(BindSamplePage));
-			//// 起動時にView上部に入力用のTextBoxがあるViewを表示する場合は↓のコメントを外す
-			//this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(ReactiveSamplePanel));
-			// 起動時にListBoxのみのViewを表示する場合は↓のコメントを外す
-			this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(ReactiveSample2));
+			// 起動時にView上部に入力用のTextBoxがあるViewを表示する場合は↓のコメントを外す
+			this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(ReactiveSamplePanel));
+			//// 起動時にListBoxのみのViewを表示する場合は↓のコメントを外す
+			//this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(ReactiveSample2));
 		}
 
 		#region IDisposable
