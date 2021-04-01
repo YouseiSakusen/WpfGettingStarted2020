@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Reactive.Bindings;
@@ -14,18 +12,20 @@ namespace PrismSample.ListBoxPages
 {
 	public class SequencePageViewModel : BindableBase, IDestructible
 	{
+		/// <summary>ListBoxに表示する連番を表すReadOnlyReactiveCollection<int>。</summary>
 		public ReadOnlyReactiveCollection<int> Sequence { get; }
 
-		public ReactivePropertySlim<int> SelectedValue { get; }
-
+		/// <summary>連番表示ボタンのClickコマンド。</summary>
 		public ReactiveCommand ShowSeqenceClick { get; }
 
+		/// <summary>クリアボタンのClickコマンド。</summary>
 		public ReactiveCommand ClearSequenceClick { get; }
 
 		private CompositeDisposable disposable = new CompositeDisposable();
 		private ObservableCollection<int> seqSource = null;
 		private IObservable<int> sequenceCount = null;
 
+		/// <summary>コンストラクタ。</summary>
 		public SequencePageViewModel()
 		{
 			this.seqSource = new ObservableCollection<int>();
@@ -33,9 +33,6 @@ namespace PrismSample.ListBoxPages
 				.ToReadOnlyReactiveCollection(seq => seq)
 				.AddTo(this.disposable);
 			this.sequenceCount = this.Sequence.ObserveProperty(x => x.Count);
-			
-			this.SelectedValue = new ReactivePropertySlim<int>(0)
-				.AddTo(this.disposable);
 
 			this.ClearSequenceClick = this.sequenceCount.Select(c => 0 < c)
 				.ToReactiveCommand()
