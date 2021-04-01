@@ -1,28 +1,28 @@
 ﻿<prism:PrismApplication x:Class="PrismSample.App"
 						xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						xmlns:prism="http://prismlibrary.com/"
-						xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-	<Application.Resources>
+						xmlns:local="clr-namespace:PrismSample"
+						xmlns:prism="http://prismlibrary.com/">
+    <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<!--MahApps--> 
+				<!--MahApps-->
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Violet.xaml"/>
 
-				 <!--Material Design--> 
+				<!--Material Design-->
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
 
-				 <!--Material Design: MahApps Compatibility--> 
+				<!--Material Design: MahApps Compatibility-->
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Flyout.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
-			 <!--MahApps Brushes--> 
+			<!--MahApps Brushes-->
 			<SolidColorBrush x:Key="MahApps.Brushes.Highlight" Color="{DynamicResource Primary700}"/>
 			<SolidColorBrush x:Key="MahApps.Brushes.AccentBase" Color="{DynamicResource Primary600}" />
 			<SolidColorBrush x:Key="MahApps.Brushes.Accent" Color="{DynamicResource Primary500}"/>
