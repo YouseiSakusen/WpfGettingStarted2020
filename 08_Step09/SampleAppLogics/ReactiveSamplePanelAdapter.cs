@@ -69,14 +69,14 @@ namespace PrismSample
 		{
 			return Task.Run(() =>
 			{
-				var resultIndeies = this.SearchResults.Select((p, i) => new { Person = p, Index = i })
+				var resultIndexes = this.SearchResults.Select((p, i) => new { Person = p, Index = i })
 					.Where(x => Regex.IsMatch(x.Person.Name.Value, Regex.Escape(this.Person.Name.Value)))
 					.Select(x => x.Index)
 					.ToList();
-				if (resultIndeies.Count == 0)
+				if (resultIndexes.Count == 0)
 					return -1;
 
-				return resultIndeies.First();
+				return resultIndexes.First();
 			});
 		}
 
