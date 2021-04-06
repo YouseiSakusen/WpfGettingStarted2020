@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Windows;
 using MahApps.Metro.Controls;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -14,10 +13,10 @@ namespace PrismSample
 			InitializeComponent();
 		}
 
-		private void MetroWindow_Closed(object sender, EventArgs e)
+		private void MetroWindow_Closed(object sender, System.EventArgs e)
 		{
 			if (this.DataContext is IDisposable)
-				(this.DataContext as IDisposable)?.Dispose();
+				(this.DataContext as IDisposable).Dispose();
 		}
 	}
 }

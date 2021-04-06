@@ -1,0 +1,14 @@
+﻿<metro:MetroWindow x:Class="ListBoxBindingSamle.MainWindow"
+				   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+				   xmlns:prism="http://prismlibrary.com/"
+				   prism:ViewModelLocator.AutoWireViewModel="True"
+				   Title=".NET5 WPF Prism MVVM 入門 2020 サンプル" Height="480" Width="640"
+				   TitleCharacterCasing="Normal"
+				   WindowStartupLocation="CenterScreen" Closed="MetroWindow_Closed">
+	<Grid>
+		<ContentControl Focusable="False"
+						prism:RegionManager.RegionName="ContentRegion" />
+	</Grid>
+</metro:MetroWindow>

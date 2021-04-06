@@ -4,11 +4,11 @@ using System.Linq;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace PrismSample.ViewDirect
+namespace PrismSample.ListBoxPages
 {
-	public class ViewDirectPanelViewModel : BindableBase
+	public class EnumBindingPageViewModel : BindableBase
 	{
-		public ViewDirectPanelViewModel()
+		public EnumBindingPageViewModel()
 		{
 
 		}

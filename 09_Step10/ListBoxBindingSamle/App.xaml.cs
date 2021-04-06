@@ -4,7 +4,7 @@ using System.Windows;
 using Prism.Ioc;
 using Prism.Mvvm;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>
 	/// Interaction logic for App.xaml
