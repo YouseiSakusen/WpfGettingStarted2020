@@ -52,11 +52,12 @@
 					 VirtualizingPanel.IsVirtualizing="True"
 					 VirtualizingPanel.VirtualizationMode="Recycling"
 					 VirtualizingPanel.ScrollUnit="Pixel"
-					 ItemsSource="{Binding Source={StaticResource BleachAffiliation}}"/>
+					 ItemsSource="{Binding Source={StaticResource BleachAffiliation}}"
+					 SelectedValue="{Binding BleachListSelectedValue.Value, Mode=TwoWay}"/>
 		</GroupBox>
-		<!--<TextBlock Grid.Row="3"
+		<TextBlock Grid.Row="3"
 				   Margin="10 3 0 0"
 				   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-				   Text="{Binding ElementName=lstSequence, Path=SelectedValue}"/>-->
+				   Text="{Binding ElementName=lstSequence, Path=SelectedValue}"/>
 	</Grid>
 </UserControl>

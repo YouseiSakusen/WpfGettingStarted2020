@@ -6,7 +6,6 @@
     <RootNamespace>ListBoxBindingSamle.ListBoxPages</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="EnumBindingPageViewModel.cs" />
     <Compile Remove="ViewDirectPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
