@@ -3,11 +3,11 @@
 namespace ListBoxBindingSamle.ListBoxPages
 {
 	/// <summary>
-	/// Interaction logic for SequencePage
+	/// Interaction logic for EnumMarkupPage
 	/// </summary>
-	public partial class SequencePage : UserControl
+	public partial class EnumMarkupPage : UserControl
 	{
-		public SequencePage()
+		public EnumMarkupPage()
 		{
 			InitializeComponent();
 		}

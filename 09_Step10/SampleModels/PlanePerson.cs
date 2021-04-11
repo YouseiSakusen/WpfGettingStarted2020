@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>一般的なPersonクラスを表します。</summary>
 	public class PlanePerson

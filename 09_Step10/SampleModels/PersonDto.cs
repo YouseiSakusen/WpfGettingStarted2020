@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>DataAccess層で生成される個人情報を表します。</summary>
 	public class PersonDto

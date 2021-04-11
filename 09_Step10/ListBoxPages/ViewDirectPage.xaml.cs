@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrismSample.ListBoxPages
+namespace ListBoxBindingSamle.ListBoxPages
 {
 	/// <summary>
 	/// Interaction logic for ViewDirectPage

@@ -10,4 +10,8 @@
     <PackageReference Include="ReactiveProperty" Version="7.8.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\elfConverterAttributes\elfConverterAttributes.csproj" />
+  </ItemGroup>
+
 </Project>

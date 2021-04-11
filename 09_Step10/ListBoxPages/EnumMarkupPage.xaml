@@ -1,8 +1,10 @@
-﻿<UserControl x:Class="ListBoxBindingSamle.ListBoxPages.SequencePage"
+﻿<UserControl x:Class="ListBoxBindingSamle.ListBoxPages.EnumMarkupPage"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:elf="clr-namespace:elf.Views;assembly=elfViewsLib"
+			 xmlns:lbs="clr-namespace:ListBoxBindingSamle;assembly=SampleModels"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="480" d:DesignWidth="640"
 			 xmlns:prism="http://prismlibrary.com/"
@@ -20,11 +22,11 @@
 				<ColumnDefinition Width="0.4*"/>
 				<ColumnDefinition Width="0.3*"/>
 			</Grid.ColumnDefinitions>
-			<Button Grid.Column="1"
+			<!--<Button Grid.Column="1"
 					Content="連番表示"
 					Cursor="Hand"
 					Style="{StaticResource MaterialDesignRaisedAccentButton}"
-					Command="{Binding ShowSeqenceClick}"/>
+					Command="{Binding ShowSeqenceClick}"/>-->
 		</Grid>
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
@@ -32,18 +34,19 @@
 				<ColumnDefinition Width="0.4*"/>
 				<ColumnDefinition Width="0.3*"/>
 			</Grid.ColumnDefinitions>
-			<Button Grid.Column="2"
+			<!--<Button Grid.Column="2"
 					Content="クリア"
 					Style="{StaticResource MaterialDesignRaisedLightButton}"
-					Command="{Binding ClearSequenceClick}"/>
+					Command="{Binding ClearSequenceClick}"/>-->
 		</Grid>
 		<GroupBox Grid.Row="2"
-				  Header="Viewから表示データを供給">
+				  Header="EnumBindingSourceExtensionから表示データを供給">
 			<ListBox Name="lstSequence"
 					 VirtualizingPanel.IsVirtualizing="True"
 					 VirtualizingPanel.VirtualizationMode="Recycling"
 					 VirtualizingPanel.ScrollUnit="Pixel"
-					 ItemsSource="{Binding Sequence, Mode=OneWay}"/>
+					 ItemsSource="{Binding Source={elf:EnumBindingSource {x:Type lbs:所属組織}}}"
+					 SelectedValue="{Binding BleachListSelectedValue.Value, Mode=TwoWay}"/>
 		</GroupBox>
 		<TextBlock Grid.Row="3"
 				   Margin="10 3 0 0"

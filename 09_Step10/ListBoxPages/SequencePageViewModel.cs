@@ -8,7 +8,7 @@ using Prism.Navigation;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
-namespace PrismSample.ListBoxPages
+namespace ListBoxBindingSamle.ListBoxPages
 {
 	public class SequencePageViewModel : BindableBase, IDestructible
 	{

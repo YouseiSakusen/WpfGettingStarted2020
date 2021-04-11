@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Disposables;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>DisposableなModelを表します。</summary>
 	public class DisposableModelBase : IDisposable

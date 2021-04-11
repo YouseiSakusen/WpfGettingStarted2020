@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>プロパティをReactivePropertySlimで定義したPerson。</summary>
 	public class PersonSlim : DisposableModelBase

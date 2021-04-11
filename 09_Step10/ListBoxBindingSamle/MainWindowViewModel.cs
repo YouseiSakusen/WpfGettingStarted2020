@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Prism.Commands;
+using ListBoxBindingSamle.ListBoxPages;
 using Prism.Mvvm;
 using Prism.Regions;
-using PrismSample.ListBoxPages;
 
 namespace ListBoxBindingSamle
 {
@@ -20,8 +17,10 @@ namespace ListBoxBindingSamle
 			//this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(ViewDirectPage));
 			//// VMからデータを供給
 			//this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(SequencePage));
-			// Enumをバインド
+			// ObjectDataProviderでバインド
 			this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(EnumBindingPage));
+			//// EnumBindingSourceExtensionでバインド
+			//this.regionManager.RegisterViewWithRegion("ContentRegion", typeof(EnumMarkupPage));
 		}
 
 		private bool disposedValue;

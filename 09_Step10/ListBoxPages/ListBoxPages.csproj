@@ -17,6 +17,7 @@
     <PackageReference Include="ReactiveProperty" Version="7.8.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\elfViewsLib\elfViewsLib.csproj" />
     <ProjectReference Include="..\SampleModels\SampleModels.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using Prism.Mvvm;
 
-namespace PrismSample
+namespace ListBoxBindingSamle
 {
 	/// <summary>エンティティ系モデルクラス。</summary>
 	public class Person : BindableBase
