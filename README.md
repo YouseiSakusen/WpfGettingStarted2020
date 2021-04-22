@@ -35,3 +35,7 @@
 【step: 9　[ReactiveCollection 世代の ListBox 達](https://elf-mission.net/programming/wpf/getting-started-2020/step09/)】で紹介している ListBox と ReactiveCollection を MVVM パターンでバインドするサンプル。    
 今回からソリューションを .NET 5 で構成しています。
 
+## 09_Step10
+
+【step: 10　[Enum と ListBox は使いよう](https://elf-mission.net/programming/wpf/getting-started-2020/step10/)】で紹介している Enum 型を ListBox に表示する ObjectDataProvider やマークアップ拡張のサンプル。    
+
